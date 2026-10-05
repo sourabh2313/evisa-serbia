@@ -1,0 +1,13 @@
+<svg width="160" height="50" viewBox="0 0 160 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0, 5)">
+    <!-- Swirling Ribbon Graphic -->
+    <path d="M 5,28 C 15,18 25,32 38,24 C 28,34 12,38 5,28 Z" fill="#D73842" />
+    <path d="M 0,22 C 12,12 28,26 42,16 C 30,28 14,30 0,22 Z" fill="#4A90E2" />
+    <path d="M 2,25 C 14,15 26,28 40,20 C 28,29 14,33 2,25 Z" fill="#FFFFFF" opacity="0.9" />
+    
+    <!-- Text: Welcome to Serbia -->
+    <text x="44" y="19" font-family="'Times New Roman', Georgia, serif" font-size="19" font-weight="bold" fill="#FFFFFF" letter-spacing="0.5">Welcome</text>
+    <text x="45" y="36" font-family="'Times New Roman', Georgia, serif" font-size="13" font-style="italic" fill="#FFFFFF">to </text>
+    <text x="60" y="37" font-family="'Times New Roman', Georgia, serif" font-size="18" font-weight="bold" fill="#FFFFFF" letter-spacing="0.5">Serbia</text>
+  </g>
+</svg>

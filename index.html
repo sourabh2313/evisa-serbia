@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Republic of Serbia e-Visa & eServices Portal</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='170' fill='%20c6363c'/><rect y='170' width='512' height='170' fill='%230c4076'/><rect y='340' width='512' height='172' fill='%23ffffff'/></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Full Screen Buffering / Loading Overlay matching media_1789923483772.png -->
+    <div id="buffering-overlay" class="buffering-overlay">
+        <div class="buffering-spinner-container">
+            <svg class="buffering-spinner-svg" viewBox="0 0 64 64">
+                <g transform="translate(32,32)">
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="1" transform="rotate(0)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.875" transform="rotate(45)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.75" transform="rotate(90)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.625" transform="rotate(135)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.5" transform="rotate(180)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.375" transform="rotate(225)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.25" transform="rotate(270)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.125" transform="rotate(315)"/>
+                </g>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <!-- Main Top Bar -->
+        <div class="app-header__main">
+            <div class="app-container">
+                <div class="app-header__main__logo-holder">
+                    <!-- 3-Color Flag Ribbon -->
+                    <div class="logo-flag">
+                        <img src="assets/flag.svg" alt="flag">
+                    </div>
+                    <!-- Official Welcome to Serbia Brand Logo -->
+                    <div class="logo-image-box">
+                        <img src="assets/logo.svg" alt="Welcome to Serbia">
+                    </div>
+                    <!-- Vertical Divider Line -->
+                    <div class="header-divider-line"></div>
+                </div>
+
+                <!-- Right Actions Holder: White Button Box with Blue "Log in" Link -->
+                <div class="app-header__main__actions-holder">
+                    <div id="user-nav-area" style="height: 100%;">
+                        <div class="main-link-button white-button profile-button" onclick="handleForeignLoginClick()">
+                            <a class="btn-login-link" data-i18n="login">Log in</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sub-Header Bar below Header (Language Selector on Far Right as in Screenshot) -->
+        <div class="app-header__menu">
+            <div class="app-container">
+                <div class="sub-header-left-box">
+                    <div class="sub-header-left-line"></div>
+                </div>
+                <!-- Authenticated Navigation Tabs (Matching media_1790394415184.png) -->
+                <nav class="auth-sub-nav" id="auth-sub-nav" style="display: none;">
+                    <a href="#" class="auth-nav-link active" onclick="handleAuthNavClick('home', this); return false;" data-i18n="homePage">Home page</a>
+                    <a href="#" class="auth-nav-link" onclick="handleAuthNavClick('visaC', this); return false;" data-i18n="visaC">Visa C</a>
+                    <a href="#" class="auth-nav-link" onclick="handleAuthNavClick('visaD', this); return false;" data-i18n="visaD">Visa D</a>
+                    <a href="#" class="auth-nav-link" onclick="handleAuthNavClick('requests', this); return false;" data-i18n="myRequests">My requests</a>
+                </nav>
+                <div class="app-header__menu__language">
+                    <a href="#" id="lang-cir" onclick="setLanguage('cir'); return false;">ЋИР</a>
+                    <a href="#" id="lang-lat" onclick="setLanguage('lat'); return false;">LAT</a>
+                    <a href="#" id="lang-eng" class="active" onclick="setLanguage('eng'); return false;">ENG</a>
+                    <i class="fa-solid fa-globe" style="margin-left: 5px;"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Hero Header Banner Section with Office Desk Background Image -->
+        <section class="header-section">
+            <div class="app-container">
+                <h1 data-i18n="welcomeTitle">Welcome to eServices</h1>
+                <p data-i18n="welcomeDesc">Here you can use electronic services of diplomatic and consular offices and other competent authorities of the Republic of Serbia.</p>
+            </div>
+        </section>
+
+        <!-- Services Cards Section -->
+        <section class="main-section">
+            <div class="app-container">
+                <div class="main-section__title">
+                    <h3 data-i18n="allServicesTitle">All eServices in one place</h3>
+                </div>
+                <div class="main-section__content">
+                    <!-- Foreign Citizens Section -->
+                    <div class="main-section__content__item foreign-citizens-item">
+                        <h4 data-i18n="forForeignCitizens">For foreign citizens</h4>
+                        <p data-i18n="foreignCitizensText1">Apply for visa C, visa D or temporary residence approval in Republic of Serbia.</p>
+                        <p data-i18n="foreignCitizensText2">List of available services will be presented after you login.</p>
+                        <div class="main-section__content__item__actions">
+                            <button class="app-btn app-btn-dark" onclick="handleForeignLoginClick()" data-i18n="loginBtn">Login</button>
+                            <a class="app-hyperlink" onclick="openRegisterModal()" data-i18n="registerAccount">Register an account</a>
+                        </div>
+                    </div>
+
+                    <!-- Companies Section -->
+                    <div class="main-section__content__item companies-item">
+                        <h4 data-i18n="forCompanies">For companies in Republic of Serbia</h4>
+                        <p data-i18n="companiesText1">Apply if you wish to employe one or more foreign citizens.</p>
+                        <p data-i18n="companiesText2">eServices available for companies are group visa D and group temporary residence,</p>
+                        <p data-i18n="companiesText3">and unified permit for temporary residence and work.</p>
+                        <p data-i18n="companiesText4">To access eServices register on eGovernment Portal.</p>
+                        <div class="main-section__content__item__actions">
+                            <button class="app-btn app-btn-primary" onclick="openEGovPortalInfo()" data-i18n="openEGovPortal">Open eGovernment Portal</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mustard Yellow Banner Section -->
+        <section class="banner-section">
+            <div class="app-container">
+                <div class="banner-card-wrapper">
+                    <!-- Left Photo Frame Box -->
+                    <div class="banner-photo-box"></div>
+
+                    <!-- Right Text & Action Content -->
+                    <div class="banner-section__content">
+                        <h4 data-i18n="bannerTitle">Did you find the service you are looking for?</h4>
+                        <p data-i18n="bannerText">Learn more about the visa regime. Find more information, instructions and documentation needed on Entry & Stay Regulations.</p>
+                        <button class="app-btn app-btn-dark" onclick="openRegulationsModal()" data-i18n="entryStayReg">Entry & Stay Regulations</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section class="support-section">
+            <div class="app-container">
+                <div class="support-section__title">
+                    <h2 data-i18n="supportTitle">Support</h2>
+                </div>
+                <div class="support-section__content">
+                    <p data-i18n="supportText">If you have additional questions about the visa regime, permits and electronic services, please contact us:</p>
+                    <button class="app-btn app-btn-dark support-contact-btn" onclick="location.href='mailto:office@ite.gov.rs'" data-i18n="contactBtn">Contact</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Top of Page Dark Navy Bar -->
+    <div class="top-of-page-bar">
+        <div class="app-container">
+            <div class="top-of-page-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="top-line-indicator"></div>
+                <span data-i18n="topOfPage">Top of the page</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Footer with Serbia Crest and White Background -->
+    <footer class="e-application-footer">
+        <div class="app-container">
+            <div class="footer-crest-box">
+                <img src="assets/serbia-crest.svg" alt="Republic of Serbia Crest" class="footer-crest-img">
+            </div>
+            <div class="footer-info-box">
+                <h3 class="footer-title">welcometoserbia.gov.rs</h3>
+                <p class="footer-subtitle" data-i18n="welcomeToSerbia">Welcome to Serbia</p>
+                <p class="footer-text">
+                    The Website is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/rs/" target="_blank" class="footer-link">Creative Commons</a> Attribution-NonCommercial-No Derivs 3.0 Serbia License. Web project <a href="https://ite.gov.rs" target="_blank" class="footer-link">ite.gov.rs</a>
+                </p>
+                <p class="footer-text-policy">
+                    <a href="#" onclick="openTermsModal(); return false;" class="footer-link" data-i18n="privacyPolicy">Privacy Policy and terms of Use</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODALS & OVERLAYS -->
+
+    <!-- Login Modal (eID.gov.rs Electronic Identification Portal Screen matching media_1789923677269.png) -->
+    <div id="login-modal" class="modal-overlay eid-login-modal-overlay">
+        <div class="eid-modal-content">
+            <!-- Close Button at Top Corner -->
+            <button class="eid-close-btn" onclick="closeModal('login-modal')" title="Close">&times;</button>
+            
+            <!-- Top Dark Navy Bar with Language Selector Dropdown -->
+            <div class="eid-top-bar">
+                <div class="eid-container">
+                    <div class="eid-lang-dropdown">
+                        <div class="eid-lang-select-box" onclick="toggleEidLangMenu()">
+                            <span id="eid-selected-lang">English</span>
+                            <i class="fa-solid fa-caret-down" style="margin-left: 6px;"></i>
+                        </div>
+                        <div id="eid-lang-dropdown-menu" class="eid-lang-dropdown-menu">
+                            <a href="#" onclick="setLanguage('eng'); updateEidLangDisplay('English'); return false;">English</a>
+                            <a href="#" onclick="setLanguage('cir'); updateEidLangDisplay('Ћирилица'); return false;">Ћирилица</a>
+                            <a href="#" onclick="setLanguage('lat'); updateEidLangDisplay('Latinica'); return false;">Latinica</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main White Header with eID Logo and Links -->
+            <div class="eid-header">
+                <div class="eid-container">
+                    <div class="eid-header-top">
+                        <div class="eid-logo-holder">
+                            <!-- eID Logo Icon -->
+                            <div class="eid-logo-icon">
+                                <svg width="34" height="34" viewBox="0 0 40 40">
+                                    <circle cx="20" cy="20" r="17" fill="none" stroke="#253956" stroke-width="2.5"/>
+                                    <path d="M 10,22 Q 20,32 30,22" fill="none" stroke="#253956" stroke-width="2.5"/>
+                                    <path d="M 14,14 A 6,6 0 0,1 26,14" fill="none" stroke="#4a90e2" stroke-width="2.5"/>
+                                    <circle cx="20" cy="14" r="3" fill="#253956"/>
+                                </svg>
+                            </div>
+                            <div class="eid-logo-text">
+                                <span class="eid-logo-title">eID.gov.rs</span>
+                                <span class="eid-logo-sub">Electronic identification portal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="eid-nav-menu">
+                        <a href="#">eID</a>
+                        <span class="eid-nav-sep">:</span>
+                        <a href="#">Signature in the cloud</a>
+                        <span class="eid-nav-sep">:</span>
+                        <a href="#">Help</a>
+                        <span class="eid-nav-sep">:</span>
+                        <a href="#">Contact</a>
+                        <span class="eid-nav-sep">:</span>
+                        <a href="https://euprava.gov.rs" target="_blank">EGovernment portal</a>
+                        <span class="eid-nav-sep">:</span>
+                        <a href="#" onclick="closeModal('login-modal'); return false;">Back</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Light Gray Title Section -->
+            <div class="eid-page-title-bar">
+                <div class="eid-container">
+                    <h2>Login</h2>
+                </div>
+            </div>
+
+            <!-- Main White Card Container -->
+            <div class="eid-main-body">
+                <div class="eid-container">
+                    <div class="eid-card">
+                        <!-- 3 Tabs Header -->
+                        <div class="eid-tabs">
+                            <div class="eid-tab active" id="tab-pw" onclick="switchEidTab('pw')">
+                                <i class="fa-regular fa-circle-user" style="margin-right: 8px;"></i>
+                                <span>Username and password</span>
+                            </div>
+                            <div class="eid-tab" id="tab-cert" onclick="switchEidTab('cert')">
+                                <i class="fa-solid fa-id-card" style="margin-right: 8px;"></i>
+                                <span>Qualified electronic certificate</span>
+                            </div>
+                            <div class="eid-tab" id="tab-mob" onclick="switchEidTab('mob')">
+                                <i class="fa-solid fa-mobile-screen-button" style="margin-right: 8px;"></i>
+                                <span>Mobile application</span>
+                            </div>
+                        </div>
+
+                        <!-- Tab Content Body -->
+                        <div class="eid-card-body">
+                            <!-- Tab 1: Username & Password -->
+                            <div id="eid-content-pw" class="eid-tab-panel" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+                                <div class="eid-avatar-circle">
+                                    <i class="fa-regular fa-user"></i>
+                                </div>
+
+                                <p class="eid-info-notice">
+                                    Login with a username and password is a basic security login. <a href="#" class="eid-link">Find out more.</a>
+                                </p>
+
+                                <form id="login-form" onsubmit="handleLoginSubmit(event)">
+                                    <div class="eid-form-group">
+                                        <label for="login-email" class="eid-label">Username:</label>
+                                        <span class="eid-sub-label">(Email address used for registration)</span>
+                                        <input type="email" id="login-email" class="eid-input-field" placeholder="" required value="">
+                                    </div>
+
+                                    <div class="eid-form-group">
+                                        <label for="login-password" class="eid-label">Password:</label>
+                                        <div class="eid-password-box">
+                                            <input type="password" id="login-password" class="eid-input-field" required value="">
+                                            <button type="button" class="eid-show-pw-toggle" onclick="togglePasswordVisibility('login-password', this)">SHOW</button>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="eid-btn-green">
+                                        <i class="fa-solid fa-right-to-bracket" style="font-size: 1rem;"></i>
+                                        <span>Sign In</span>
+                                    </button>
+
+                                    <div class="eid-pw-forgotten-line">
+                                        <a href="#" onclick="alert('Password reset link sent to your registered email address.'); return false;" class="eid-link">Password forgotten</a>
+                                    </div>
+
+                                    <div class="eid-register-line">
+                                        Don't have an account at eid.gov.rs? Register <a href="#" onclick="closeModal('login-modal'); openRegisterModal(); return false;" class="eid-link-bold">here.</a>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Tab 2: Qualified Electronic Certificate (Matching media_1789923952873.png) -->
+                            <div id="eid-content-cert" class="eid-tab-panel" style="width: 100%; display: none; flex-direction: column; align-items: center;">
+                                <div class="eid-cert-badge-box">
+                                    <svg width="48" height="48" viewBox="0 0 50 50">
+                                        <rect x="5" y="10" width="40" height="30" rx="3" fill="none" stroke="#1b2a4a" stroke-width="2.5"/>
+                                        <circle cx="18" cy="22" r="5" fill="none" stroke="#1b2a4a" stroke-width="2"/>
+                                        <path d="M 12 33 Q 18 28 24 33" fill="none" stroke="#1b2a4a" stroke-width="2"/>
+                                        <line x1="28" y1="20" x2="38" y2="20" stroke="#1b2a4a" stroke-width="2.5"/>
+                                        <line x1="28" y1="26" x2="38" y2="26" stroke="#1b2a4a" stroke-width="2.5"/>
+                                    </svg>
+                                </div>
+
+                                <p class="eid-info-notice" style="margin-top: 15px;">
+                                    Logging in with a qualified electronic certificate is a high level of trust. <a href="#" class="eid-link">Find out more.</a>
+                                </p>
+
+                                <p class="eid-instruction-text" style="font-size: 0.92rem; color: #334155; margin-bottom: 25px; text-align: center;">
+                                    Insert a qualified electronic certificate and click Sign in.
+                                </p>
+
+                                <div style="width: 100%; max-width: 440px;">
+                                    <button type="button" class="eid-btn-green" onclick="handleCertSignIn()">
+                                        <i class="fa-solid fa-right-to-bracket" style="font-size: 1rem;"></i>
+                                        <span>Sign in</span>
+                                    </button>
+
+                                    <div class="eid-register-line" style="margin-top: 30px;">
+                                        Don't have an account at eid.gov.rs? Register <a href="#" onclick="closeModal('login-modal'); openRegisterModal(); return false;" class="eid-link-bold">here.</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tab 3: Mobile Application (Matching media_1789924225864.png) -->
+                            <div id="eid-content-mob" class="eid-tab-panel" style="width: 100%; display: none; flex-direction: column; align-items: center;">
+                                <div class="eid-mob-badge-box">
+                                    <svg width="42" height="42" viewBox="0 0 50 50">
+                                        <rect x="12" y="5" width="26" height="40" rx="4" fill="none" stroke="#1b2a4a" stroke-width="2.5"/>
+                                        <circle cx="25" cy="23" r="7" fill="none" stroke="#1b2a4a" stroke-width="2"/>
+                                        <path d="M 22 23 Q 25 19 28 23" fill="none" stroke="#1b2a4a" stroke-width="1.8"/>
+                                        <path d="M 20 25 Q 25 21 30 25" fill="none" stroke="#1b2a4a" stroke-width="1.8"/>
+                                        <circle cx="25" cy="40" r="1.5" fill="#1b2a4a"/>
+                                    </svg>
+                                </div>
+
+                                <p class="eid-info-notice" style="margin-top: 15px;">
+                                    Logging in with a mobile phone is done using the ConsentID application and is a high-level login. <a href="#" class="eid-link">Find out more.</a>
+                                </p>
+
+                                <form id="mob-login-form" onsubmit="handleLoginSubmit(event)" style="width: 100%; max-width: 440px; margin-top: 10px;">
+                                    <div class="eid-form-group">
+                                        <label for="login-email-mob" class="eid-label">Username:</label>
+                                        <span class="eid-sub-label">(Email address used for registration)</span>
+                                        <input type="email" id="login-email-mob" class="eid-input-field" placeholder="" required value="">
+                                    </div>
+
+                                    <button type="submit" class="eid-btn-green">
+                                        <i class="fa-solid fa-right-to-bracket" style="font-size: 1rem;"></i>
+                                        <span>Sign In</span>
+                                    </button>
+
+                                    <div class="eid-register-line" style="margin-top: 25px; text-align: center;">
+                                        Don't have an account at eid.gov.rs? Register <a href="#" onclick="closeModal('login-modal'); openRegisterModal(); return false;" class="eid-link-bold">here.</a>
+                                    </div>
+
+                                    <div style="margin-top: 8px; text-align: center;">
+                                        <a href="#" onclick="alert('ConsentID Activation Instructions:\n1. Download ConsentID app from App Store / Google Play.\n2. Request registration parameters at a post office or via eGovernment portal.'); return false;" class="eid-link-bold" style="font-size: 0.88rem;">How to activate the ConsentID mobile application?</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Dark Bar -->
+            <div class="eid-footer-bar">
+                <div class="eid-container">
+                    <div class="eid-top-of-page" onclick="document.querySelector('.eid-modal-content').scrollTo({top: 0, behavior: 'smooth'})">
+                        Top of page &uarr;
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main White eID Footer (Matching media_1789923952873.png) -->
+            <div class="eid-white-footer">
+                <div class="eid-container">
+                    <div class="eid-footer-flex">
+                        <img src="assets/serbia-crest.svg" alt="Republic of Serbia Crest" class="eid-footer-crest-img">
+                        <div class="eid-footer-content-box">
+                            <h4 class="eid-footer-title">eid.gov.rs</h4>
+                            <p class="eid-footer-subtitle">Electronic identification portal</p>
+                            <p class="eid-footer-license">
+                                The website is licensed under the terms of the license Creative Commons Attribution – Non Commercial – No Derivatives 3.0 Serbia. Web project <a href="https://ite.gov.rs" target="_blank" class="eid-link">ite.gov.rs</a>
+                            </p>
+                            <p class="eid-footer-links">
+                                <a href="#" onclick="openTermsModal(); return false;" class="eid-link">Privacy Statement</a> &nbsp;|&nbsp; <a href="#" onclick="openTermsModal(); return false;" class="eid-link">Terms of use</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal (Official registracija.eid.gov.rs Foreign Registration Screen) -->
+    <div id="register-modal" class="modal-overlay eid-login-modal-overlay">
+        <div class="eid-modal-content">
+            <!-- Close Button at Top Corner -->
+            <button class="eid-close-btn" onclick="closeModal('register-modal')" title="Close">&times;</button>
+            
+            <!-- Top Dark Navy Bar with Language Selector Dropdown -->
+            <div class="eid-top-bar">
+                <div class="eid-container">
+                    <div class="eid-lang-dropdown">
+                        <div class="eid-lang-select-box" onclick="toggleEidLangMenuReg()">
+                            <span id="eid-selected-lang-reg">English</span>
+                            <i class="fa-solid fa-caret-down" style="margin-left: 6px;"></i>
+                        </div>
+                        <div id="eid-lang-dropdown-menu-reg" class="eid-lang-dropdown-menu">
+                            <a href="#" onclick="setLanguage('eng'); updateEidLangDisplayReg('English'); return false;">English</a>
+                            <a href="#" onclick="setLanguage('cir'); updateEidLangDisplayReg('Ћирилица'); return false;">Ћирилица</a>
+                            <a href="#" onclick="setLanguage('lat'); updateEidLangDisplayReg('Latinica'); return false;">Latinica</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main White Header with eID Logo and Links -->
+            <div class="eid-header">
+                <div class="eid-container">
+                    <div class="eid-header-top">
+                        <div class="eid-logo-holder">
+                            <div class="eid-logo-icon">
+                                <svg width="34" height="34" viewBox="0 0 40 40">
+                                    <circle cx="20" cy="20" r="17" fill="none" stroke="#253956" stroke-width="2.5"/>
+                                    <path d="M 10,22 Q 20,32 30,22" fill="none" stroke="#253956" stroke-width="2.5"/>
+                                    <path d="M 14,14 A 6,6 0 0,1 26,14" fill="none" stroke="#4a90e2" stroke-width="2.5"/>
+                                    <circle cx="20" cy="14" r="3" fill="#253956"/>
+                                </svg>
+                            </div>
+                            <div class="eid-logo-text">
+                                <span class="eid-logo-title">eID.gov.rs</span>
+                                <span class="eid-logo-sub">Portal for electronic identification</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="eid-nav-menu">
+                        <a href="#">eCitizen</a>
+                        <span class="eid-nav-sep">:</span>
+                        <a href="#">Signature in the cloud</a>
+                        <span class="eid-nav-sep">:</span>
+                        <a href="#">Help</a>
+                        <span class="eid-nav-sep">:</span>
+                        <a href="#">Contact</a>
+                        <span class="eid-nav-sep">:</span>
+                        <a href="https://euprava.gov.rs" target="_blank">EGovernment portal</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Light Gray Title Section -->
+            <div class="eid-page-title-bar">
+                <div class="eid-container">
+                    <h2>Register an account with a username and password</h2>
+                </div>
+            </div>
+
+            <!-- Main Registration Grid Section -->
+            <div class="eid-main-body">
+                <div class="eid-container" style="max-width: 1180px;">
+                    <div class="eid-reg-grid">
+                        <!-- Left Form Column -->
+                        <div class="eid-reg-form-col">
+                            <form id="register-form" onsubmit="handleRegisterSubmit(event)">
+                                <!-- ID Document Section -->
+                                <div class="eid-reg-section-title">
+                                    <h3>Identification document (ID card or passport)</h3>
+                                    <p>Attach a read, scanned or photographed ID card or passport.<br>If you attach your ID card, you must take a photo and attach both sides.</p>
+                                    <p class="eid-auto-read-note">If you want the data to be automatically read, please attach a clear photo of your ID card or passport.</p>
+                                </div>
+
+                                <div class="eid-checkbox-group">
+                                    <label class="eid-checkbox-label">
+                                        <input type="checkbox" checked>
+                                        <span class="eid-checkbox-text">
+                                            <strong>I agree to have the document automatically (machine) read.</strong><br>
+                                            By having the attached document read, the data on the registration form will be automatically filled in. Otherwise, you must enter the data manually.
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <div class="eid-file-upload-box">
+                                    <div class="eid-file-btn" onclick="document.getElementById('reg-doc-file').click()">
+                                        <i class="fa-solid fa-paperclip" style="font-size: 1.3rem; margin-right: 10px; color: #4a90e2;"></i>
+                                        <span id="reg-file-label">Attach documents</span>
+                                        <input type="file" id="reg-doc-file" style="display: none;" accept=".pdf,.png,.jpg,.jpeg" onchange="handleRegFileUpload(this)">
+                                    </div>
+                                    <div class="eid-file-hint">
+                                        Maximum <strong>two documents, 3MB each.</strong><br>
+                                        Allowed formats: <strong>.pdf, .png, .jpg.</strong>
+                                    </div>
+                                </div>
+
+                                <!-- Personal Data Fields -->
+                                <div class="eid-form-row-2">
+                                    <div class="eid-form-group">
+                                        <label class="eid-label">First name (Use English alphabet only) *</label>
+                                        <input type="text" id="reg-name" class="eid-input-field" required placeholder="First Name">
+                                    </div>
+                                    <div class="eid-form-group">
+                                        <label class="eid-label">Last name (Use English alphabet only) *</label>
+                                        <input type="text" id="reg-surname" class="eid-input-field" required placeholder="Last Name">
+                                    </div>
+                                </div>
+
+                                <div class="eid-form-row-2">
+                                    <div class="eid-form-group">
+                                        <label class="eid-label">Document type *</label>
+                                        <select id="reg-doc-type" class="eid-input-field" required>
+                                            <option value="Passport">Passport</option>
+                                            <option value="Identity card">Identity card</option>
+                                        </select>
+                                    </div>
+                                    <div class="eid-form-group">
+                                        <label class="eid-label">Country that issued the passport *</label>
+                                        <select id="reg-citizenship" class="eid-input-field" required>
+                                            <option value="United States">United States</option>
+                                            <option value="United Kingdom">United Kingdom</option>
+                                            <option value="Germany">Germany</option>
+                                            <option value="France">France</option>
+                                            <option value="Italy">Italy</option>
+                                            <option value="Canada">Canada</option>
+                                            <option value="Australia">Australia</option>
+                                            <option value="India">India</option>
+                                            <option value="China">China</option>
+                                            <option value="Russian Federation">Russian Federation</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="eid-form-row-2">
+                                    <div class="eid-form-group">
+                                        <label class="eid-label">Document number *</label>
+                                        <input type="text" id="reg-passport" class="eid-input-field" required placeholder="A12345678">
+                                    </div>
+                                    <div class="eid-form-group">
+                                        <label class="eid-label">Document expiration date *</label>
+                                        <input type="date" class="eid-input-field" required value="2030-12-31">
+                                    </div>
+                                </div>
+
+                                <div class="eid-form-row-2">
+                                    <div class="eid-form-group">
+                                        <label class="eid-label">Date of birth *</label>
+                                        <input type="date" class="eid-input-field" required value="1990-05-15">
+                                    </div>
+                                    <div class="eid-form-group">
+                                        <label class="eid-label">Gender</label>
+                                        <select class="eid-input-field">
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Credentials -->
+                                <div class="eid-reg-section-title" style="margin-top: 30px;">
+                                    <h3>Username and password</h3>
+                                </div>
+
+                                <div class="eid-form-group">
+                                    <label class="eid-label">User name (Email address) *</label>
+                                    <input type="email" id="reg-email" class="eid-input-field" required placeholder="Enter your email address which will represent your username.">
+                                </div>
+
+                                <div class="eid-form-row-2">
+                                    <div class="eid-form-group">
+                                        <label class="eid-label">Password *</label>
+                                        <div class="eid-password-box">
+                                            <input type="password" id="reg-password" class="eid-input-field" required placeholder="Enter your password">
+                                            <button type="button" class="eid-show-pw-toggle" onclick="togglePasswordVisibility('reg-password', this)">SHOW</button>
+                                        </div>
+                                    </div>
+                                    <div class="eid-form-group">
+                                        <label class="eid-label">Password confirmation *</label>
+                                        <div class="eid-password-box">
+                                            <input type="password" id="reg-password-confirm" class="eid-input-field" required placeholder="Repeat password">
+                                            <button type="button" class="eid-show-pw-toggle" onclick="togglePasswordVisibility('reg-password-confirm', this)">SHOW</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="eid-password-note">
+                                    Enter a password that will contain at least eight and at most 20 characters, at least one uppercase and lowercase letter, a number and a special character (!, @, #, $, %, &, *)
+                                </div>
+
+                                <div class="eid-checkbox-group" style="margin-top: 20px;">
+                                    <label class="eid-checkbox-label">
+                                        <input type="checkbox" id="reg-terms" required checked>
+                                        <span class="eid-checkbox-text">
+                                            <a href="#" onclick="openTermsModal(); return false;" class="eid-link">I agree with the Terms of Use of the eID Portal and accept the General Conditions and Privacy Policy of providing the Electronic Identification Service.</a>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <div style="margin-top: 30px; display: flex; justify-content: flex-end;">
+                                    <button type="submit" class="eid-btn-blue">
+                                        <span>Register</span>
+                                        <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Right Instructions Column -->
+                        <div class="eid-reg-tutorial-col">
+                            <div class="eid-promo-box">
+                                <span>Find out who is <strong>eCitizen?</strong></span>
+                                <a href="#" class="eid-promo-link">More details <i class="fa-solid fa-circle-info"></i></a>
+                            </div>
+
+                            <div class="eid-tutorial-steps">
+                                <!-- Step 1 (Active) -->
+                                <div class="eid-step-item active">
+                                    <div class="eid-step-badge">1</div>
+                                    <div class="eid-step-content">
+                                        <h4>Register an account with a username and password</h4>
+                                        <ul>
+                                            <li>You need to attach a clear photo of your passport or ID card for foreign citizens.</li>
+                                            <li>After registration, we will send you an email with a link to confirm your email address within 24 hours.</li>
+                                            <li>We will review the submitted data and approve your registration request within 48 hours.</li>
+                                            <li>Logging in with a username and password allows you to access basic eGovernment services.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Step 2 -->
+                                <div class="eid-step-item">
+                                    <div class="eid-step-badge inactive">2</div>
+                                    <div class="eid-step-content">
+                                        <h4 class="inactive-title">Activate the ConsentID mobile application</h4>
+                                        <p class="inactive-desc">Signing in with the ConsentID mobile application is a sign-in method with a high level of reliability and allows access to all eGovernment services.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Step 3 -->
+                                <div class="eid-step-item">
+                                    <div class="eid-step-badge inactive">3</div>
+                                    <div class="eid-step-content">
+                                        <h4 class="inactive-title">Activate a qualified electronic certificate in the cloud</h4>
+                                        <p class="inactive-desc">Qualified electronic certificate in the cloud allows you to use your qualified electronic signature remotely via ConsentID.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Dark Bar -->
+            <div class="eid-footer-bar">
+                <div class="eid-container">
+                    <div class="eid-top-of-page" onclick="document.querySelector('#register-modal .eid-modal-content').scrollTo({top: 0, behavior: 'smooth'})">
+                        Top of page &uarr;
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main White eID Footer -->
+            <div class="eid-white-footer">
+                <div class="eid-container">
+                    <div class="eid-footer-flex">
+                        <img src="assets/serbia-crest.svg" alt="Republic of Serbia Crest" class="eid-footer-crest-img">
+                        <div class="eid-footer-content-box">
+                            <h4 class="eid-footer-title">eid.gov.rs</h4>
+                            <p class="eid-footer-subtitle">Electronic identification portal</p>
+                            <p class="eid-footer-license">
+                                The website is licensed under the terms of the license Creative Commons Attribution – Non Commercial – No Derivatives 3.0 Serbia. Web project <a href="https://ite.gov.rs" target="_blank" class="eid-link">ite.gov.rs</a>
+                            </p>
+                            <p class="eid-footer-links">
+                                <a href="#" onclick="openTermsModal(); return false;" class="eid-link">Privacy Statement</a> &nbsp;|&nbsp; <a href="#" onclick="openTermsModal(); return false;" class="eid-link">Terms of use</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Multi-Step Application Wizard Modal -->
+    <div id="wizard-modal" class="modal-overlay">
+        <div class="modal-card modal-card-large">
+            <div class="modal-header">
+                <h3 data-i18n="wizardTitle">Application for Entry Visa to the Republic of Serbia</h3>
+                <button class="close-btn" onclick="closeModal('wizard-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Step Indicator Header -->
+                <div class="wizard-steps">
+                    <div class="wizard-step active" id="step-indicator-1"><div class="wizard-step-num">1</div> <span data-i18n="stPurpose">Purpose</span></div>
+                    <div class="wizard-step" id="step-indicator-2"><div class="wizard-step-num">2</div> <span data-i18n="stPersonal">Personal</span></div>
+                    <div class="wizard-step" id="step-indicator-3"><div class="wizard-step-num">3</div> <span data-i18n="stPassport">Passport</span></div>
+                    <div class="wizard-step" id="step-indicator-4"><div class="wizard-step-num">4</div> <span data-i18n="stContact">Contact</span></div>
+                    <div class="wizard-step" id="step-indicator-5"><div class="wizard-step-num">5</div> <span data-i18n="stTrip">Trip</span></div>
+                    <div class="wizard-step" id="step-indicator-6"><div class="wizard-step-num">6</div> <span data-i18n="stHost">Host</span></div>
+                    <div class="wizard-step" id="step-indicator-7"><div class="wizard-step-num">7</div> <span data-i18n="stDocs">Docs</span></div>
+                    <div class="wizard-step" id="step-indicator-8"><div class="wizard-step-num">8</div> <span data-i18n="stReview">Review</span></div>
+                </div>
+
+                <!-- Wizard Form Step Containers -->
+                <form id="evisa-wizard-form" onsubmit="return false;">
+                    <!-- Step 1: Type & Purpose -->
+                    <div class="wizard-pane" id="step-pane-1">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step1Title">Step 1: Application Category & Consular Post</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="visaTypeLabel">Visa Type Requested</span> <span class="req">*</span></label>
+                                <select id="field-visaType" class="form-select" required>
+                                    <option value="Visa C (Short Stay up to 90 days)">Visa C (Short Stay - up to 90 days)</option>
+                                    <option value="Visa D (Long Stay 90-180 days)">Visa D (Long Stay - 90 to 180 days)</option>
+                                    <option value="Temporary Residence Approval">Temporary Residence Approval</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="purposeLabel">Main Purpose of Visit</span> <span class="req">*</span></label>
+                                <select id="field-purpose" class="form-select" required>
+                                    <option value="Tourism">Tourism / Holiday</option>
+                                    <option value="Business">Business / Conference</option>
+                                    <option value="Employment">Employment / Work Contract</option>
+                                    <option value="Family Visit">Family Reunion / Private Visit</option>
+                                    <option value="Education">Education / Study / Research</option>
+                                    <option value="Medical">Medical Treatment</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><span data-i18n="consularPostLabel">Diplomatic / Consular Office of the Republic of Serbia</span> <span class="req">*</span></label>
+                            <select id="field-consularPost" class="form-select" required>
+                                <option value="Embassy in Washington D.C.">Embassy of the Republic of Serbia in Washington D.C.</option>
+                                <option value="Embassy in London">Embassy of the Republic of Serbia in London</option>
+                                <option value="Consulate General in New York">Consulate General of the Republic of Serbia in New York</option>
+                                <option value=" Embassy in Beijing">Embassy of the Republic of Serbia in Beijing</option>
+                                <option value="Embassy in New Delhi">Embassy of the Republic of Serbia in New Delhi</option>
+                                <option value="Consulate General in Chicago">Consulate General of the Republic of Serbia in Chicago</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Personal Data -->
+                    <div class="wizard-pane" id="step-pane-2" style="display: none;">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step2Title">Step 2: Personal & Family Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="surname">Surname (As in Passport)</span> <span class="req">*</span></label>
+                                <input type="text" id="field-surname" class="form-control" required placeholder="RANA">
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="givenName">Given Name(s)</span> <span class="req">*</span></label>
+                                <input type="text" id="field-givenName" class="form-control" required placeholder="RAHUL">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="surnameAtBirth">Surname at Birth</span></label>
+                                <input type="text" id="field-surnameAtBirth" class="form-control" placeholder="If different">
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="dob">Date of Birth</span> <span class="req">*</span></label>
+                                <input type="date" id="field-dob" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="countryOfBirth">Country of Birth</span> <span class="req">*</span></label>
+                                <input type="text" id="field-countryOfBirth" class="form-control" required placeholder="United States">
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="placeOfBirth">Place of Birth</span> <span class="req">*</span></label>
+                                <input type="text" id="field-placeOfBirth" class="form-control" required placeholder="New York">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="currentCitizenship">Current Citizenship</span> <span class="req">*</span></label>
+                                <input type="text" id="field-citizenship" class="form-control" required placeholder="United States">
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="sex">Sex</span> <span class="req">*</span></label>
+                                <select id="field-sex" class="form-select" required>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Passport Details -->
+                    <div class="wizard-pane" id="step-pane-3" style="display: none;">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step3Title">Step 3: Travel Document (Passport Details)</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="docType">Type of Travel Document</span> <span class="req">*</span></label>
+                                <select id="field-docType" class="form-select" required>
+                                    <option value="Ordinary Passport">Ordinary Passport</option>
+                                    <option value="Diplomatic Passport">Diplomatic Passport</option>
+                                    <option value="Service Passport">Service / Official Passport</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="passportNo">Passport Number</span> <span class="req">*</span></label>
+                                <input type="text" id="field-passportNumber" class="form-control" required placeholder="N12345678">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="issuingCountry">Issuing Country / Authority</span> <span class="req">*</span></label>
+                                <input type="text" id="field-issuingCountry" class="form-control" required placeholder="Department of State / USA">
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="issueDate">Date of Issue</span> <span class="req">*</span></label>
+                                <input type="date" id="field-issueDate" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="expiryDate">Expiry Date</span> <span class="req">*</span></label>
+                                <input type="date" id="field-expiryDate" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Contact & Profession -->
+                    <div class="wizard-pane" id="step-pane-4" style="display: none;">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step4Title">Step 4: Contact Information & Occupation</h4>
+                        <div class="form-group">
+                            <label><span data-i18n="homeAddress">Current Residential Address</span> <span class="req">*</span></label>
+                            <input type="text" id="field-homeAddress" class="form-control" required placeholder="123 Main Street, Suite 400">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="city">City</span> <span class="req">*</span></label>
+                                <input type="text" id="field-city" class="form-control" required placeholder="New York">
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="phoneNo">Telephone / Mobile</span> <span class="req">*</span></label>
+                                <input type="text" id="field-phone" class="form-control" required placeholder="+1 555-0192">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="occupation">Current Occupation</span> <span class="req">*</span></label>
+                                <input type="text" id="field-occupation" class="form-control" required placeholder="Software Engineer / Consultant">
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="employer">Employer / Institution Name</span></label>
+                                <input type="text" id="field-employer" class="form-control" placeholder="Acme Technologies Inc.">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Intended Stay -->
+                    <div class="wizard-pane" id="step-pane-5" style="display: none;">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step5Title">Step 5: Trip & Travel Dates</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="arrivalDate">Intended Date of Arrival</span> <span class="req">*</span></label>
+                                <input type="date" id="field-arrivalDate" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="departureDate">Intended Date of Departure</span> <span class="req">*</span></label>
+                                <input type="date" id="field-departureDate" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="entriesReq">Number of Entries Requested</span> <span class="req">*</span></label>
+                                <select id="field-entries" class="form-select" required>
+                                    <option value="Single Entry">Single Entry</option>
+                                    <option value="Double Entry">Double Entry</option>
+                                    <option value="Multiple Entry">Multiple Entry</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="borderEntry">Port of Entry (Border Crossing)</span> <span class="req">*</span></label>
+                                <select id="field-portOfEntry" class="form-select" required>
+                                    <option value="Belgrade Nikola Tesla Airport (BEG)">Belgrade Nikola Tesla Airport (BEG)</option>
+                                    <option value="Niš Constantine the Great Airport (INI)">Niš Constantine the Great Airport (INI)</option>
+                                    <option value="Batrovci (Croatia border)">Batrovci Land Border Point</option>
+                                    <option value="Horgoš (Hungary border)">Horgoš Land Border Point</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 6: Host & Accommodation -->
+                    <div class="wizard-pane" id="step-pane-6" style="display: none;">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step6Title">Step 6: Host / Hotel Accommodation in Serbia</h4>
+                        <div class="form-group">
+                            <label><span data-i18n="hostName">Name of Hotel / Inviting Company / Person</span> <span class="req">*</span></label>
+                            <input type="text" id="field-hostName" class="form-control" required placeholder="Hotel Metropol Palace / Tech Corp d.o.o.">
+                        </div>
+                        <div class="form-group">
+                            <label><span data-i18n="hostAddress">Full Address in the Republic of Serbia</span> <span class="req">*</span></label>
+                            <input type="text" id="field-hostAddress" class="form-control" required placeholder="Bulevar kralja Aleksandra 69, 11000 Belgrade">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="hostPhone">Host Telephone / Contact</span> <span class="req">*</span></label>
+                                <input type="text" id="field-hostPhone" class="form-control" required placeholder="+381 11 333 4100">
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="hostEmail">Host Email</span></label>
+                                <input type="email" id="field-hostEmail" class="form-control" placeholder="reservations@hotel.rs">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 7: Document Uploads -->
+                    <div class="wizard-pane" id="step-pane-7" style="display: none;">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step7Title">Step 7: Supporting Document Uploads (Max 5MB each)</h4>
+                        <div class="form-group">
+                            <label><span data-i18n="docPassport">1. Copy of Passport Bio-Page (PDF/JPG)</span> <span class="req">*</span></label>
+                            <div class="file-dropzone" onclick="document.getElementById('file-passport').click()">
+                                <i class="fa-solid fa-file-pdf"></i>
+                                <p id="label-file-passport">Click or drop Passport Copy here</p>
+                                <input type="file" id="file-passport" accept=".pdf,.jpg,.png" style="display: none;" onchange="updateFileName(this, 'label-file-passport')">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><span data-i18n="docInvitation">2. Invitation Letter / Hotel Booking Confirmation</span> <span class="req">*</span></label>
+                            <div class="file-dropzone" onclick="document.getElementById('file-invitation').click()">
+                                <i class="fa-solid fa-hotel"></i>
+                                <p id="label-file-invitation">Click or drop Invitation/Hotel Booking here</p>
+                                <input type="file" id="file-invitation" accept=".pdf,.jpg,.png" style="display: none;" onchange="updateFileName(this, 'label-file-invitation')">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><span data-i18n="docInsurance">3. Travel Medical Insurance Policy</span> <span class="req">*</span></label>
+                            <div class="file-dropzone" onclick="document.getElementById('file-insurance').click()">
+                                <i class="fa-solid fa-shield-halved"></i>
+                                <p id="label-file-insurance">Click or drop Travel Insurance policy here</p>
+                                <input type="file" id="file-insurance" accept=".pdf,.jpg,.png" style="display: none;" onchange="updateFileName(this, 'label-file-insurance')">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 8: Review & Fee Payment -->
+                    <div class="wizard-pane" id="step-pane-8" style="display: none;">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step8Title">Step 8: Review Application & Electronic Payment</h4>
+                        <div id="review-summary-container" style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                            <!-- Summary generated dynamically -->
+                        </div>
+                        
+                        <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-bottom: 20px;">
+                            <h5 style="color: var(--navy-dark); margin-bottom: 10px;">Electronic Fee Payment</h5>
+                            <div style="display: flex; justify-content: space-between; align-items: center; background-color: #eff6ff; padding: 12px 16px; border-radius: 6px;">
+                                <span>Visa Processing Fee:</span>
+                                <strong style="font-size: 1.2rem; color: #1e3a8a;" id="fee-amount-display">60.00 EUR</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
+                                <input type="checkbox" id="consent-check" required style="margin-top: 4px;">
+                                <span style="font-size: 0.85rem; font-weight: 500;" data-i18n="consentText">I hereby declare that all information provided in this application is complete, truthful, and accurate. I understand that false statements may lead to application rejection or visa revocation.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Footer for Wizard -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                        <button type="button" class="app-btn app-btn-outline" id="wizard-prev-btn" onclick="wizardNavigate(-1)" style="visibility: hidden;" data-i18n="prevBtn">Previous Step</button>
+                        <div>
+                            <button type="button" class="app-btn app-btn-dark" id="wizard-next-btn" onclick="wizardNavigate(1)" data-i18n="nextBtn">Next Step</button>
+                            <button type="button" class="app-btn app-btn-primary" id="wizard-submit-btn" onclick="submitEvisaForm()" style="display: none;" data-i18n="submitPayBtn">Submit & Pay Fee</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- e-Visa PDF Certificate View Modal -->
+    <div id="certificate-modal" class="modal-overlay">
+        <div class="modal-card modal-card-large">
+            <div class="modal-header">
+                <h3>Republic of Serbia - Electronic Visa (e-Visa)</h3>
+                <button class="close-btn" onclick="closeModal('certificate-modal')">&times;</button>
+            </div>
+            <div class="modal-body" id="certificate-content" style="padding: 30px; font-family: 'Montserrat', sans-serif;">
+                <!-- Generated dynamically by app.js -->
+            </div>
+            <div style="padding: 15px 30px; background-color: #f8fafc; border-top: 1px solid #e2e8f0; text-align: right;">
+                <button class="app-btn app-btn-dark" onclick="window.print()"><i class="fa-solid fa-print"></i> Print e-Visa</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Popup -->
+    <div id="toast" class="toast-notification">
+        <i class="fa-solid fa-circle-check" id="toast-icon"></i>
+        <span id="toast-message">Notification message</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
