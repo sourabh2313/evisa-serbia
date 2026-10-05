@@ -1,0 +1,84 @@
+{
+  "users": [
+    {
+      "email": "rahul.rana@gmail.com",
+      "password": "password123",
+      "name": "Rahul Rana",
+      "passportNumber": "N12345678",
+      "citizenship": "United States"
+    },
+    {
+      "email": "karan.nagpal@gmail.com",
+      "password": "password123",
+      "name": "KARAN NAGPAL",
+      "passportNumber": "K9876543",
+      "citizenship": "India"
+    },
+    {
+      "email": "rana09299@gmail.com",
+      "password": "Rahul@123",
+      "name": "RAHUL BHARDWAJ",
+      "passportNumber": "D2345678",
+      "citizenship": "India"
+    }
+  ],
+  "applications": [
+    {
+      "id": "371738",
+      "visId": "451653",
+      "userId": "rahul.rana@gmail.com",
+      "visaType": "Visa D",
+      "purpose": "Employment",
+      "status": "Request approved",
+      "createdAt": "2026-09-15T00:00:00.000Z",
+      "personalData": {
+        "givenName": "Rahul",
+        "surname": "Rana",
+        "dateOfBirth": "1990-05-14",
+        "citizenship": "United States",
+        "passportNumber": "N12345678",
+        "expiryDate": "2030-05-14"
+      },
+      "feePaid": 60,
+      "currency": "EUR"
+    },
+    {
+      "id": "845201",
+      "visId": "296417",
+      "userId": "karan.nagpal@gmail.com",
+      "visaType": "Visa D",
+      "purpose": "Employment",
+      "status": "Request approved",
+      "createdAt": "2026-09-16T00:00:00.000Z",
+      "personalData": {
+        "givenName": "Karan",
+        "surname": "Nagpal",
+        "dateOfBirth": "1992-08-20",
+        "citizenship": "India",
+        "passportNumber": "K9876543",
+        "expiryDate": "2032-08-20"
+      },
+      "feePaid": 60,
+      "currency": "EUR"
+    },
+    {
+      "id": "482916",
+      "visId": "731054",
+      "userId": "rana09299@gmail.com",
+      "visaType": "Visa D",
+      "purpose": "Employment",
+      "status": "Request approved",
+      "createdAt": "2026-09-17T00:00:00.000Z",
+      "personalData": {
+        "givenName": "Rahul",
+        "surname": "Bhardwaj",
+        "dateOfBirth": "1991-03-10",
+        "citizenship": "India",
+        "passportNumber": "D2345678",
+        "expiryDate": "2031-03-10"
+      },
+      "feePaid": 60,
+      "currency": "EUR"
+    }
+  ]
+}

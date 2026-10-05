@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Republic of Serbia e-Visa Portal - List of previously sent requests</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='170' fill='%23c6363c'/><rect y='170' width='512' height='170' fill='%230c4076'/><rect y='340' width='512' height='172' fill='%23ffffff'/></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- Full Screen Buffering / Loading Overlay -->
+    <div id="buffering-overlay" class="buffering-overlay">
+        <div class="buffering-spinner-container">
+            <svg class="buffering-spinner-svg" viewBox="0 0 64 64">
+                <g transform="translate(32,32)">
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="1" transform="rotate(0)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.875" transform="rotate(45)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.75" transform="rotate(90)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.625" transform="rotate(135)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.5" transform="rotate(180)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.375" transform="rotate(225)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.25" transform="rotate(270)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.125" transform="rotate(315)"/>
+                </g>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Header matching media_1790411683623.png -->
+    <header>
+        <!-- Main Top Bar -->
+        <div class="app-header__main">
+            <div class="app-container">
+                <div class="app-header__main__logo-holder" style="cursor: pointer;" onclick="handleAuthNavClick('home', null)" title="Go to Home page">
+                    <!-- 3-Color Flag Ribbon -->
+                    <div class="logo-flag">
+                        <img src="../assets/flag.svg" alt="flag">
+                    </div>
+                    <!-- Official Welcome to Serbia Brand Logo -->
+                    <div class="logo-image-box">
+                        <img src="../assets/logo.svg" alt="Welcome to Serbia">
+                    </div>
+                    <!-- Vertical Divider Line -->
+                    <div class="header-divider-line"></div>
+                </div>
+
+                <!-- Right Actions Holder: Authenticated User Box with Circle Icon -->
+                <div class="app-header__main__actions-holder">
+                    <div id="user-nav-area" style="height: 100%;">
+                        <div class="main-link-button white-button auth-user-box" id="auth-user-box" onclick="toggleUserDropdown(event)" title="Account options">
+                            <span class="auth-user-name" id="auth-user-name">Rahul Rana</span>
+                            <i class="fa-regular fa-circle-user" style="font-size: 1.35rem; color: #253956; margin-left: 10px;"></i>
+                            <div id="auth-user-dropdown" class="auth-user-dropdown">
+                                <div class="auth-dropdown-item-header">Signed in as</div>
+                                <div class="auth-dropdown-item-user" id="auth-dropdown-user-name">Rahul Rana</div>
+                                <div class="auth-dropdown-divider"></div>
+                                <a href="javascript:void(0)" class="auth-dropdown-link" onclick="handleLogout(event)">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sub-Header Bar with 4 Navigation Tabs - My requests active -->
+        <div class="app-header__menu">
+            <div class="app-container">
+                <div class="sub-header-left-box">
+                    <div class="sub-header-left-line"></div>
+                </div>
+                <!-- 4 Navigation Tabs -->
+                <nav class="auth-sub-nav" id="auth-sub-nav" style="display: flex;">
+                    <a href="#" class="auth-nav-link" onclick="handleAuthNavClick('home', this); return false;" data-i18n="homePage">Home page</a>
+                    <a href="#" class="auth-nav-link" onclick="handleAuthNavClick('visaC', this); return false;" data-i18n="visaC">Visa C</a>
+                    <a href="#" class="auth-nav-link" onclick="handleAuthNavClick('visaD', this); return false;" data-i18n="visaD">Visa D</a>
+                    <a href="#" class="auth-nav-link active" onclick="handleAuthNavClick('requests', this); return false;" data-i18n="myRequests">My requests</a>
+                </nav>
+                <div class="app-header__menu__language">
+                    <a href="#" id="lang-cir" onclick="setLanguage('cir'); return false;">ЋИР</a>
+                    <a href="#" id="lang-lat" onclick="setLanguage('lat'); return false;">LAT</a>
+                    <a href="#" id="lang-eng" class="active" onclick="setLanguage('eng'); return false;">ENG</a>
+                    <i class="fa-solid fa-globe" style="margin-left: 5px;"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area: List of previously sent requests matching media_1790411683623.png -->
+    <main class="myrequests-main">
+        <div class="app-container">
+            <h1 class="myrequests-page-title" data-i18n="myRequestsTitle">List of previously sent requests</h1>
+
+            <div class="myrequests-table-wrapper">
+                <div class="myrequests-row">
+                    <!-- Request number -->
+                    <div class="myrequests-col">
+                        <span class="myrequests-col-label">Request number</span>
+                        <span class="myrequests-col-val" id="req-number">371738</span>
+                    </div>
+
+                    <!-- First and last name: dynamically displays logged-in user name -->
+                    <div class="myrequests-col">
+                        <span class="myrequests-col-label">First and last name</span>
+                        <span class="myrequests-col-val" id="req-user-name">Rahul Rana</span>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="myrequests-col">
+                        <span class="myrequests-col-label">Status</span>
+                        <div>
+                            <span class="myrequests-status-badge">Request approved</span>
+                        </div>
+                    </div>
+
+                    <!-- Visa -->
+                    <div class="myrequests-col">
+                        <span class="myrequests-col-label">Visa</span>
+                        <span class="myrequests-col-val" id="req-visa-type">Visa D</span>
+                    </div>
+
+                    <!-- Vis Id -->
+                    <div class="myrequests-col">
+                        <span class="myrequests-col-label">Vis Id</span>
+                        <span class="myrequests-col-val" id="req-vis-id">451653</span>
+                    </div>
+
+                    <!-- Action Button: Open Request -->
+                    <div class="myrequests-col myrequests-col-action">
+                        <button class="myrequests-open-btn" onclick="openRequestDetailsModal()">
+                            Open<br>Request
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Top of Page Dark Navy Bar -->
+    <div class="top-of-page-bar">
+        <div class="app-container">
+            <div class="top-of-page-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="top-line-indicator"></div>
+                <span data-i18n="topOfPage">Top of the page</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Footer with Serbia Crest and White Background -->
+    <footer class="e-application-footer">
+        <div class="app-container">
+            <div class="footer-crest-box">
+                <img src="../assets/serbia-crest.svg" alt="Republic of Serbia Crest" class="footer-crest-img">
+            </div>
+            <div class="footer-info-box">
+                <h3 class="footer-title">welcometoserbia.gov.rs</h3>
+                <p class="footer-subtitle" data-i18n="welcomeToSerbia">Welcome to Serbia</p>
+                <p class="footer-text">
+                    The Website is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/rs/" target="_blank" class="footer-link">Creative Commons</a> Attribution-NonCommercial-No Derivs 3.0 Serbia License. Web project <a href="https://ite.gov.rs" target="_blank" class="footer-link">ite.gov.rs</a>
+                </p>
+                <p class="footer-text-policy">
+                    <a href="#" onclick="openTermsModal(); return false;" class="footer-link" data-i18n="privacyPolicy">Privacy Policy and terms of Use</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Official Request Details Modal -->
+    <div id="request-details-modal" class="modal-overlay">
+        <div class="modal-card" style="max-width: 680px;">
+            <div class="modal-header" style="background-color: #1e355b; color: #ffffff;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <img src="../assets/serbia-crest.svg" alt="Crest" style="height: 38px; width: auto; filter: brightness(0) invert(1);">
+                    <div>
+                        <h3 style="margin: 0; font-size: 1.15rem; color: #ffffff;">Republic of Serbia &bull; e-Visa Decision</h3>
+                        <p style="margin: 0; font-size: 0.78rem; opacity: 0.85;">Ministry of Foreign Affairs &bull; Consular Affairs</p>
+                    </div>
+                </div>
+                <button class="close-btn" onclick="closeModal('request-details-modal')" style="color: #ffffff;">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0;">
+                    <div>
+                        <span style="font-size: 0.82rem; color: #64748b; display: block;">Request Reference</span>
+                        <strong data-field="request-ref" style="font-size: 1.25rem; color: #1e355b;">#371738</strong>
+                    </div>
+                    <div>
+                        <span style="font-size: 0.82rem; color: #64748b; display: block;">VIS System ID</span>
+                        <strong data-field="vis-id" style="font-size: 1.25rem; color: #1e355b;">451653</strong>
+                    </div>
+                    <div>
+                        <span style="font-size: 0.82rem; color: #64748b; display: block;">Decision Status</span>
+                        <span class="myrequests-status-badge" style="padding: 4px 12px; font-size: 0.9rem;">Request approved</span>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; font-size: 0.92rem;">
+                    <div>
+                        <span style="color: #64748b; display: block; font-size: 0.82rem;">First and Last Name</span>
+                        <strong id="modal-applicant-name" style="color: #1e355b;">Rahul Rana</strong>
+                    </div>
+                    <div>
+                        <span style="color: #64748b; display: block; font-size: 0.82rem;">Visa Category</span>
+                        <strong data-field="visa-cat" style="color: #1e355b;">Visa D (Long Stay / Employment)</strong>
+                    </div>
+                    <div>
+                        <span style="color: #64748b; display: block; font-size: 0.82rem;">Validity Period</span>
+                        <strong style="color: #1e355b;">180 Days (Multiple entries)</strong>
+                    </div>
+                    <div>
+                        <span style="color: #64748b; display: block; font-size: 0.82rem;">Consular Mission</span>
+                        <strong style="color: #1e355b;">Embassy of the Republic of Serbia</strong>
+                    </div>
+                    <div>
+                        <span style="color: #64748b; display: block; font-size: 0.82rem;">Application Date</span>
+                        <span data-field="app-date" style="color: #334155;">2026-09-15</span>
+                    </div>
+                    <div>
+                        <span style="color: #64748b; display: block; font-size: 0.82rem;">Approval Date</span>
+                        <span style="color: #334155;">2026-09-22</span>
+                    </div>
+                </div>
+
+                <div style="background-color: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px; padding: 12px 16px; font-size: 0.84rem; color: #475569; display: flex; align-items: center; gap: 12px;">
+                    <i class="fa-solid fa-circle-check" style="font-size: 1.5rem; color: #00a651;"></i>
+                    <span>This electronic decision has been officially registered in the Central Visa Information System (VIS) of the Republic of Serbia.</span>
+                </div>
+            </div>
+            <div class="modal-footer" style="display: flex; justify-content: space-between;">
+                <button type="button" class="app-btn app-btn-outline" onclick="window.print()">
+                    <i class="fa-solid fa-print"></i> Print Decision
+                </button>
+                <button type="button" class="app-btn app-btn-dark" onclick="closeModal('request-details-modal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Multi-Step Application Wizard Modal (for Visa C / Visa D) -->
+    <div id="wizard-modal" class="modal-overlay">
+        <div class="modal-card modal-card-large">
+            <div class="modal-header">
+                <h3 data-i18n="wizardTitle">Application for Entry Visa to the Republic of Serbia</h3>
+                <button class="close-btn" onclick="closeModal('wizard-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="wizard-steps">
+                    <div class="wizard-step active" id="step-indicator-1"><div class="wizard-step-num">1</div> <span>Purpose</span></div>
+                    <div class="wizard-step" id="step-indicator-2"><div class="wizard-step-num">2</div> <span>Personal</span></div>
+                    <div class="wizard-step" id="step-indicator-3"><div class="wizard-step-num">3</div> <span>Passport</span></div>
+                    <div class="wizard-step" id="step-indicator-4"><div class="wizard-step-num">4</div> <span>Contact</span></div>
+                    <div class="wizard-step" id="step-indicator-5"><div class="wizard-step-num">5</div> <span>Trip</span></div>
+                    <div class="wizard-step" id="step-indicator-6"><div class="wizard-step-num">6</div> <span>Host</span></div>
+                    <div class="wizard-step" id="step-indicator-7"><div class="wizard-step-num">7</div> <span>Docs</span></div>
+                    <div class="wizard-step" id="step-indicator-8"><div class="wizard-step-num">8</div> <span>Review</span></div>
+                </div>
+
+                <form id="evisa-wizard-form" onsubmit="return false;">
+                    <div class="wizard-pane" id="step-pane-1">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);">Step 1: Application Category & Consular Post</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Visa Type Requested <span class="req">*</span></label>
+                                <select id="field-visaType" class="form-select" required>
+                                    <option value="Visa C (Short Stay up to 90 days)">Visa C (Short Stay - up to 90 days)</option>
+                                    <option value="Visa D (Long Stay 90-180 days)">Visa D (Long Stay - 90 to 180 days)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Main Purpose of Visit <span class="req">*</span></label>
+                                <select id="field-purpose" class="form-select" required>
+                                    <option value="Tourism">Tourism / Holiday</option>
+                                    <option value="Business">Business / Conference</option>
+                                    <option value="Employment">Employment / Work Contract</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="app-btn app-btn-dark" onclick="closeModal('wizard-modal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Popup -->
+    <div id="toast" class="toast-notification">
+        <i class="fa-solid fa-circle-check" id="toast-icon"></i>
+        <span id="toast-message">Notification message</span>
+    </div>
+
+    <script src="../app.js"></script>
+    <script>
+        // Store loaded applications for modal access
+        let loadedApplications = [];
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = getLoggedInUser();
+            const displayName = (user && user.name && user.name.toUpperCase() !== 'JOHN DOE' && user.name.toUpperCase() !== 'USER') ? user.name : 'Rahul Rana';
+            const userEmail = (user && user.email) ? user.email : 'rahul.rana@gmail.com';
+
+            // Update header user name displays
+            const topUserEl = document.getElementById('auth-user-name');
+            if (topUserEl) topUserEl.textContent = displayName;
+            const dropUserEl = document.getElementById('auth-dropdown-user-name');
+            if (dropUserEl) dropUserEl.textContent = displayName;
+
+            // Fetch applications from API for this user
+            try {
+                const resp = await fetch(`/api/applications?email=${encodeURIComponent(userEmail)}&name=${encodeURIComponent(displayName)}`);
+                const data = await resp.json();
+                if (data.success && data.applications && data.applications.length > 0) {
+                    loadedApplications = data.applications;
+                    renderApplicationsList(data.applications, displayName);
+                }
+            } catch (err) {
+                console.error('Failed to fetch applications:', err);
+                if (typeof getLocalUserApp === 'function') {
+                    const localApp = getLocalUserApp(userEmail, displayName);
+                    loadedApplications = [localApp];
+                    renderApplicationsList([localApp], displayName);
+                }
+            }
+        });
+
+        function renderApplicationsList(applications, fallbackName) {
+            const wrapper = document.querySelector('.myrequests-table-wrapper');
+            if (!wrapper) return;
+            wrapper.innerHTML = ''; // Clear existing hardcoded row
+
+            applications.forEach((app, index) => {
+                const appName = (app.personalData && app.personalData.givenName)
+                    ? `${app.personalData.givenName} ${app.personalData.surname || ''}`.trim().toUpperCase()
+                    : (fallbackName || 'RAHUL RANA').toUpperCase();
+
+                const row = document.createElement('div');
+                row.className = 'myrequests-row';
+                row.innerHTML = `
+                    <!-- Request number -->
+                    <div class="myrequests-col">
+                        <span class="myrequests-col-label">Request number</span>
+                        <span class="myrequests-col-val">${app.id}</span>
+                    </div>
+                    <!-- First and last name -->
+                    <div class="myrequests-col">
+                        <span class="myrequests-col-label">First and last name</span>
+                        <span class="myrequests-col-val">${appName}</span>
+                    </div>
+                    <!-- Status -->
+                    <div class="myrequests-col">
+                        <span class="myrequests-col-label">Status</span>
+                        <div>
+                            <span class="myrequests-status-badge">${app.status || 'Request approved'}</span>
+                        </div>
+                    </div>
+                    <!-- Visa -->
+                    <div class="myrequests-col">
+                        <span class="myrequests-col-label">Visa</span>
+                        <span class="myrequests-col-val">${app.visaType || 'Visa D'}</span>
+                    </div>
+                    <!-- Vis Id -->
+                    <div class="myrequests-col">
+                        <span class="myrequests-col-label">Vis Id</span>
+                        <span class="myrequests-col-val">${app.visId || '—'}</span>
+                    </div>
+                    <!-- Action Button -->
+                    <div class="myrequests-col myrequests-col-action">
+                        <button class="myrequests-open-btn" onclick="openRequestDetailsModal(${index})">
+                            Open<br>Request
+                        </button>
+                    </div>
+                `;
+                wrapper.appendChild(row);
+            });
+        }
+
+        function openRequestDetailsModal(appIndex) {
+            const app = loadedApplications[appIndex || 0];
+            if (!app) return;
+
+            const user = getLoggedInUser();
+            const displayName = (app.personalData && app.personalData.givenName)
+                ? `${app.personalData.givenName} ${app.personalData.surname || ''}`.trim()
+                : (user && user.name ? user.name : 'Rahul Rana');
+
+            // Update modal fields dynamically
+            const refEl = document.querySelector('#request-details-modal .modal-body strong[data-field="request-ref"]');
+            const visEl = document.querySelector('#request-details-modal .modal-body strong[data-field="vis-id"]');
+            const statusEl = document.querySelector('#request-details-modal .modal-body .myrequests-status-badge');
+            const nameEl = document.getElementById('modal-applicant-name');
+            const visaCatEl = document.querySelector('#request-details-modal .modal-body strong[data-field="visa-cat"]');
+            const appDateEl = document.querySelector('#request-details-modal .modal-body span[data-field="app-date"]');
+
+            if (refEl) refEl.textContent = `#${app.id}`;
+            if (visEl) visEl.textContent = app.visId || '—';
+            if (statusEl) statusEl.textContent = app.status || 'Request approved';
+            if (nameEl) nameEl.textContent = displayName;
+            if (visaCatEl) visaCatEl.textContent = app.visaType || 'Visa D';
+            if (appDateEl) appDateEl.textContent = app.createdAt ? app.createdAt.split('T')[0] : '—';
+
+            openModal('request-details-modal');
+        }
+    </script>
+</body>
+</html>

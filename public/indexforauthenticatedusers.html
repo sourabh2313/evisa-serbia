@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Republic of Serbia e-Visa Portal - Welcome</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='170' fill='%23c6363c'/><rect y='170' width='512' height='170' fill='%230c4076'/><rect y='340' width='512' height='172' fill='%23ffffff'/></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Full Screen Buffering / Loading Overlay -->
+    <div id="buffering-overlay" class="buffering-overlay">
+        <div class="buffering-spinner-container">
+            <svg class="buffering-spinner-svg" viewBox="0 0 64 64">
+                <g transform="translate(32,32)">
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="1" transform="rotate(0)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.875" transform="rotate(45)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.75" transform="rotate(90)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.625" transform="rotate(135)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.5" transform="rotate(180)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.375" transform="rotate(225)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.25" transform="rotate(270)"/>
+                    <line x1="0" y1="-20" x2="0" y2="-12" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.125" transform="rotate(315)"/>
+                </g>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Header matching media_1790394415184.png -->
+    <header>
+        <!-- Main Top Bar -->
+        <div class="app-header__main">
+            <div class="app-container">
+                <div class="app-header__main__logo-holder">
+                    <!-- 3-Color Flag Ribbon -->
+                    <div class="logo-flag">
+                        <img src="assets/flag.svg" alt="flag">
+                    </div>
+                    <!-- Official Welcome to Serbia Brand Logo -->
+                    <div class="logo-image-box">
+                        <img src="assets/logo.svg" alt="Welcome to Serbia">
+                    </div>
+                    <!-- Vertical Divider Line -->
+                    <div class="header-divider-line"></div>
+                </div>
+
+                <!-- Right Actions Holder: Authenticated User Box with Circle User Icon matching media_1790411683623.png -->
+                <div class="app-header__main__actions-holder">
+                    <div id="user-nav-area" style="height: 100%;">
+                        <div class="main-link-button white-button auth-user-box" id="auth-user-box" onclick="toggleUserDropdown(event)" title="Account options">
+                            <span class="auth-user-name" id="auth-user-name">Rahul Rana</span>
+                            <i class="fa-regular fa-circle-user" style="font-size: 1.35rem; color: #253956; margin-left: 10px;"></i>
+                            <div id="auth-user-dropdown" class="auth-user-dropdown">
+                                <div class="auth-dropdown-item-header">Signed in as</div>
+                                <div class="auth-dropdown-item-user" id="auth-dropdown-user-name">Rahul Rana</div>
+                                <div class="auth-dropdown-divider"></div>
+                                <a href="javascript:void(0)" class="auth-dropdown-link" onclick="handleLogout(event)">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sub-Header Bar with 4 Navigation Tabs matching media_1790394415184.png -->
+        <div class="app-header__menu">
+            <div class="app-container">
+                <div class="sub-header-left-box">
+                    <div class="sub-header-left-line"></div>
+                </div>
+                <!-- 4 Navigation Tabs -->
+                <nav class="auth-sub-nav" id="auth-sub-nav" style="display: flex;">
+                    <a href="#" class="auth-nav-link active" onclick="handleAuthNavClick('home', this); return false;" data-i18n="homePage">Home page</a>
+                    <a href="#" class="auth-nav-link" onclick="handleAuthNavClick('visaC', this); return false;" data-i18n="visaC">Visa C</a>
+                    <a href="#" class="auth-nav-link" onclick="handleAuthNavClick('visaD', this); return false;" data-i18n="visaD">Visa D</a>
+                    <a href="#" class="auth-nav-link" onclick="handleAuthNavClick('requests', this); return false;" data-i18n="myRequests">My requests</a>
+                </nav>
+                <div class="app-header__menu__language">
+                    <a href="#" id="lang-cir" onclick="setLanguage('cir'); return false;">ЋИР</a>
+                    <a href="#" id="lang-lat" onclick="setLanguage('lat'); return false;">LAT</a>
+                    <a href="#" id="lang-eng" class="active" onclick="setLanguage('eng'); return false;">ENG</a>
+                    <i class="fa-solid fa-globe" style="margin-left: 5px;"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Hero Header Banner Section with Office Desk Background Image -->
+        <section class="header-section">
+            <div class="app-container">
+                <h1 data-i18n="welcomeTitle">Welcome to eServices</h1>
+                <p data-i18n="welcomeDesc">Here you can use electronic services of diplomatic and consular offices and other competent authorities of the Republic of Serbia.</p>
+            </div>
+        </section>
+
+        <!-- Services Cards Section -->
+        <section class="main-section">
+            <div class="app-container">
+                <div class="main-section__title">
+                    <h3 data-i18n="allServicesTitle">All eServices in one place</h3>
+                </div>
+                <div class="main-section__content">
+                    <!-- Foreign Citizens Section -->
+                    <div class="main-section__content__item foreign-citizens-item">
+                        <h4 data-i18n="forForeignCitizens">For foreign citizens</h4>
+                        <p data-i18n="foreignCitizensText1">Apply for visa C, visa D or temporary residence approval in Republic of Serbia.</p>
+                        <p data-i18n="foreignCitizensText2">List of available services will be presented after you login.</p>
+                        <div class="main-section__content__item__actions">
+                            <button class="app-btn app-btn-dark" onclick="startNewApplication('Visa C')">Apply for Visa C</button>
+                            <button class="app-btn app-btn-dark" onclick="startNewApplication('Visa D')">Apply for Visa D</button>
+                        </div>
+                    </div>
+
+                    <!-- Companies Section -->
+                    <div class="main-section__content__item companies-item">
+                        <h4 data-i18n="forCompanies">For companies in Republic of Serbia</h4>
+                        <p data-i18n="companiesText1">Apply if you wish to employe one or more foreign citizens.</p>
+                        <p data-i18n="companiesText2">eServices available for companies are group visa D and group temporary residence,</p>
+                        <p data-i18n="companiesText3">and unified permit for temporary residence and work.</p>
+                        <p data-i18n="companiesText4">To access eServices register on eGovernment Portal.</p>
+                        <div class="main-section__content__item__actions">
+                            <button class="app-btn app-btn-primary" onclick="openEGovPortalInfo()" data-i18n="openEGovPortal">Open eGovernment Portal</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mustard Yellow Banner Section -->
+        <section class="banner-section">
+            <div class="app-container">
+                <div class="banner-card-wrapper">
+                    <!-- Left Photo Frame Box -->
+                    <div class="banner-photo-box"></div>
+
+                    <!-- Right Text & Action Content -->
+                    <div class="banner-section__content">
+                        <h4 data-i18n="bannerTitle">Did you find the service you are looking for?</h4>
+                        <p data-i18n="bannerText">Learn more about the visa regime. Find more information, instructions and documentation needed on Entry & Stay Regulations.</p>
+                        <button class="app-btn app-btn-dark" onclick="openRegulationsModal()" data-i18n="entryStayReg">Entry & Stay Regulations</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section class="support-section">
+            <div class="app-container">
+                <div class="support-section__title">
+                    <h2 data-i18n="supportTitle">Support</h2>
+                </div>
+                <div class="support-section__content">
+                    <p data-i18n="supportText">If you have additional questions about the visa regime, permits and electronic services, please contact us:</p>
+                    <button class="app-btn app-btn-dark support-contact-btn" onclick="location.href='mailto:office@ite.gov.rs'" data-i18n="contactBtn">Contact</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Top of Page Dark Navy Bar -->
+    <div class="top-of-page-bar">
+        <div class="app-container">
+            <div class="top-of-page-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="top-line-indicator"></div>
+                <span data-i18n="topOfPage">Top of the page</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Footer with Serbia Crest and White Background -->
+    <footer class="e-application-footer">
+        <div class="app-container">
+            <div class="footer-crest-box">
+                <img src="assets/serbia-crest.svg" alt="Republic of Serbia Crest" class="footer-crest-img">
+            </div>
+            <div class="footer-info-box">
+                <h3 class="footer-title">welcometoserbia.gov.rs</h3>
+                <p class="footer-subtitle" data-i18n="welcomeToSerbia">Welcome to Serbia</p>
+                <p class="footer-text">
+                    The Website is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/rs/" target="_blank" class="footer-link">Creative Commons</a> Attribution-NonCommercial-No Derivs 3.0 Serbia License. Web project <a href="https://ite.gov.rs" target="_blank" class="footer-link">ite.gov.rs</a>
+                </p>
+                <p class="footer-text-policy">
+                    <a href="#" onclick="openTermsModal(); return false;" class="footer-link" data-i18n="privacyPolicy">Privacy Policy and terms of Use</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Multi-Step Application Wizard Modal -->
+    <div id="wizard-modal" class="modal-overlay">
+        <div class="modal-card modal-card-large">
+            <div class="modal-header">
+                <h3 data-i18n="wizardTitle">Application for Entry Visa to the Republic of Serbia</h3>
+                <button class="close-btn" onclick="closeModal('wizard-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Step Indicator Header -->
+                <div class="wizard-steps">
+                    <div class="wizard-step active" id="step-indicator-1"><div class="wizard-step-num">1</div> <span data-i18n="stPurpose">Purpose</span></div>
+                    <div class="wizard-step" id="step-indicator-2"><div class="wizard-step-num">2</div> <span data-i18n="stPersonal">Personal</span></div>
+                    <div class="wizard-step" id="step-indicator-3"><div class="wizard-step-num">3</div> <span data-i18n="stPassport">Passport</span></div>
+                    <div class="wizard-step" id="step-indicator-4"><div class="wizard-step-num">4</div> <span data-i18n="stContact">Contact</span></div>
+                    <div class="wizard-step" id="step-indicator-5"><div class="wizard-step-num">5</div> <span data-i18n="stTrip">Trip</span></div>
+                    <div class="wizard-step" id="step-indicator-6"><div class="wizard-step-num">6</div> <span data-i18n="stHost">Host</span></div>
+                    <div class="wizard-step" id="step-indicator-7"><div class="wizard-step-num">7</div> <span data-i18n="stDocs">Docs</span></div>
+                    <div class="wizard-step" id="step-indicator-8"><div class="wizard-step-num">8</div> <span data-i18n="stReview">Review</span></div>
+                </div>
+
+                <!-- Wizard Form Step Containers -->
+                <form id="evisa-wizard-form" onsubmit="return false;">
+                    <!-- Step 1: Type & Purpose -->
+                    <div class="wizard-pane" id="step-pane-1">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step1Title">Step 1: Application Category & Consular Post</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="visaTypeLabel">Visa Type Requested</span> <span class="req">*</span></label>
+                                <select id="field-visaType" class="form-select" required>
+                                    <option value="Visa C (Short Stay up to 90 days)">Visa C (Short Stay - up to 90 days)</option>
+                                    <option value="Visa D (Long Stay 90-180 days)">Visa D (Long Stay - 90 to 180 days)</option>
+                                    <option value="Temporary Residence Approval">Temporary Residence Approval</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="purposeLabel">Main Purpose of Visit</span> <span class="req">*</span></label>
+                                <select id="field-purpose" class="form-select" required>
+                                    <option value="Tourism">Tourism / Holiday</option>
+                                    <option value="Business">Business / Conference</option>
+                                    <option value="Employment">Employment / Work Contract</option>
+                                    <option value="Family Visit">Family Reunion / Private Visit</option>
+                                    <option value="Education">Education / Study / Research</option>
+                                    <option value="Medical">Medical Treatment</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="consularPostLabel">Diplomatic / Consular Office of the Republic of Serbia</span> <span class="req">*</span></label>
+                                <select id="field-consularPost" class="form-select">
+                                    <option value="Embassy in Washington, USA">Embassy in Washington, USA</option>
+                                    <option value="Consulate General in New York, USA">Consulate General in New York, USA</option>
+                                    <option value="Consulate General in Chicago, USA">Consulate General in Chicago, USA</option>
+                                    <option value="Embassy in London, United Kingdom">Embassy in London, United Kingdom</option>
+                                    <option value="Embassy in New Delhi, India">Embassy in New Delhi, India</option>
+                                    <option value="Embassy in Beijing, China">Embassy in Beijing, China</option>
+                                    <option value="Embassy in Berlin, Germany">Embassy in Berlin, Germany</option>
+                                    <option value="Embassy in Paris, France">Embassy in Paris, France</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Personal -->
+                    <div class="wizard-pane" id="step-pane-2" style="display: none;">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step2Title">Step 2: Personal & Family Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="givenName">Given Name(s)</span> <span class="req">*</span></label>
+                                <input type="text" id="field-givenName" class="form-input" value="RAHUL" required>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="surname">Surname (Family Name)</span> <span class="req">*</span></label>
+                                <input type="text" id="field-surname" class="form-input" value="RANA" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="surnameAtBirth">Surname at Birth</span></label>
+                                <input type="text" id="field-birthSurname" class="form-input" value="RANA">
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="dob">Date of Birth</span> <span class="req">*</span></label>
+                                <input type="date" id="field-dob" class="form-input" value="1992-04-18" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="countryOfBirth">Country of Birth</span> <span class="req">*</span></label>
+                                <input type="text" id="field-countryBirth" class="form-input" value="Nepal" required>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="placeOfBirth">Place of Birth</span> <span class="req">*</span></label>
+                                <input type="text" id="field-placeBirth" class="form-input" value="Kathmandu" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="currentCitizenship">Current Citizenship</span> <span class="req">*</span></label>
+                                <input type="text" id="field-citizenship" class="form-input" value="Nepalese" required>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="sex">Sex</span> <span class="req">*</span></label>
+                                <select id="field-sex" class="form-select">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Passport -->
+                    <div class="wizard-pane" id="step-pane-3" style="display: none;">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step3Title">Step 3: Travel Document (Passport Details)</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="docType">Type of Travel Document</span> <span class="req">*</span></label>
+                                <select id="field-docType" class="form-select">
+                                    <option value="Ordinary Passport">Ordinary Passport</option>
+                                    <option value="Diplomatic Passport">Diplomatic Passport</option>
+                                    <option value="Service / Official Passport">Service / Official Passport</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="passportNo">Passport Number</span> <span class="req">*</span></label>
+                                <input type="text" id="field-passportNumber" class="form-input" value="PA0892415" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="issuingCountry">Issuing Country / Authority</span> <span class="req">*</span></label>
+                                <input type="text" id="field-issuingCountry" class="form-input" value="Nepal" required>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="issueDate">Date of Issue</span> <span class="req">*</span></label>
+                                <input type="date" id="field-issueDate" class="form-input" value="2022-01-10" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="expiryDate">Expiry Date</span> <span class="req">*</span></label>
+                                <input type="date" id="field-expiryDate" class="form-input" value="2032-01-09" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Contact -->
+                    <div class="wizard-pane" id="step-pane-4" style="display: none;">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step4Title">Step 4: Contact Information & Occupation</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="homeAddress">Current Residential Address</span> <span class="req">*</span></label>
+                                <input type="text" id="field-address" class="form-input" value="Lazimpat Road 45" required>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="city">City</span> <span class="req">*</span></label>
+                                <input type="text" id="field-city" class="form-input" value="Kathmandu" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="phoneNo">Telephone / Mobile</span> <span class="req">*</span></label>
+                                <input type="tel" id="field-phone" class="form-input" value="+977 9841234567" required>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="emailLabel">Email Address</span> <span class="req">*</span></label>
+                                <input type="email" id="field-email" class="form-input" value="rahul.rana@gmail.com" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Trip -->
+                    <div class="wizard-pane" id="step-pane-5" style="display: none;">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step5Title">Step 5: Trip & Travel Dates</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="arrivalDate">Intended Date of Arrival</span> <span class="req">*</span></label>
+                                <input type="date" id="field-arrivalDate" class="form-input" value="2026-11-01" required>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="departureDate">Intended Date of Departure</span> <span class="req">*</span></label>
+                                <input type="date" id="field-departureDate" class="form-input" value="2026-11-20" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="entriesReq">Number of Entries Requested</span></label>
+                                <select id="field-entries" class="form-select">
+                                    <option value="Single entry">Single entry</option>
+                                    <option value="Two entries">Two entries</option>
+                                    <option value="Multiple entries">Multiple entries</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="borderEntry">Port of Entry (Border Crossing)</span></label>
+                                <input type="text" id="field-border" class="form-input" value="Belgrade Nikola Tesla Airport">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 6: Host -->
+                    <div class="wizard-pane" id="step-pane-6" style="display: none;">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step6Title">Step 6: Host / Hotel Accommodation in Serbia</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="hostName">Hotel Name / Inviting Company</span> <span class="req">*</span></label>
+                                <input type="text" id="field-hostName" class="form-input" value="Hotel Moskva Belgrade" required>
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="hostAddress">Address in Serbia</span> <span class="req">*</span></label>
+                                <input type="text" id="field-hostAddress" class="form-input" value="Balkanska 1, Belgrade" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-i18n="hostPhone">Host Telephone</span></label>
+                                <input type="tel" id="field-hostPhone" class="form-input" value="+381 11 3642069">
+                            </div>
+                            <div class="form-group">
+                                <label><span data-i18n="hostEmail">Host Email</span></label>
+                                <input type="email" id="field-hostEmail" class="form-input" value="info@hotelmoskva.rs">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 7: Docs -->
+                    <div class="wizard-pane" id="step-pane-7" style="display: none;">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step7Title">Step 7: Upload Supporting Documents (Max 5MB)</h4>
+                        <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">
+                            <div class="file-upload-box">
+                                <label style="font-weight: 600; display: block; margin-bottom: 6px;"><span data-i18n="docPassport">1. Passport Bio Page (PDF/JPG)</span> <span class="req">*</span></label>
+                                <input type="file" class="form-input" accept=".pdf,.jpg,.jpeg,.png">
+                            </div>
+                            <div class="file-upload-box">
+                                <label style="font-weight: 600; display: block; margin-bottom: 6px;"><span data-i18n="docInvitation">2. Hotel Reservation / Invitation Letter</span> <span class="req">*</span></label>
+                                <input type="file" class="form-input" accept=".pdf,.jpg,.jpeg,.png">
+                            </div>
+                            <div class="file-upload-box">
+                                <label style="font-weight: 600; display: block; margin-bottom: 6px;"><span data-i18n="docInsurance">3. Travel Health Insurance</span> <span class="req">*</span></label>
+                                <input type="file" class="form-input" accept=".pdf,.jpg,.jpeg,.png">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 8: Review & Fee -->
+                    <div class="wizard-pane" id="step-pane-8" style="display: none;">
+                        <h4 style="margin-bottom: 15px; color: var(--navy-dark);" data-i18n="step8Title">Step 8: Review Application & Fee Payment</h4>
+                        <div style="background-color: var(--bg-light); border: 1px solid var(--border-color); border-radius: 6px; padding: 20px; margin-bottom: 20px;">
+                            <h4 style="color: var(--navy-dark); margin-bottom: 10px;">Consular Fee Overview</h4>
+                            <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 700; color: #253956; padding: 8px 0; border-top: 1px dashed #cbd5e1; border-bottom: 1px dashed #cbd5e1;">
+                                <span>Visa Processing Fee</span>
+                                <span id="review-fee">€35.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="app-btn app-btn-outline" id="wizard-prev-btn" onclick="prevWizardStep()" style="display: none;" data-i18n="prevBtn">Previous Step</button>
+                <button type="button" class="app-btn app-btn-dark" id="wizard-next-btn" onclick="nextWizardStep()" data-i18n="nextBtn">Next Step</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Requests Modal -->
+    <div id="requests-modal" class="modal-overlay">
+        <div class="modal-card modal-card-large">
+            <div class="modal-header">
+                <h3 data-i18n="myRequests">My requests</h3>
+                <button class="close-btn" onclick="closeModal('requests-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="padding: 10px 0;">
+                    <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 12px;">
+                            <div>
+                                <span style="font-weight: 700; color: #253956; font-size: 1.05rem;">Request #SRB-2026-92841</span>
+                                <span style="display: inline-block; background-color: #dcfce7; color: #166534; font-size: 0.78rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-left: 10px;">Submitted</span>
+                            </div>
+                            <span style="font-size: 0.88rem; color: #64748b;">2026-09-26</span>
+                        </div>
+                        <div style="font-size: 0.92rem; color: #334155; line-height: 1.6;">
+                            <strong>Applicant:</strong> <span id="app-applicant-name">Rahul Rana</span><br>
+                            <strong>Service:</strong> Visa C (Short Stay)<br>
+                            <strong>Consular Office:</strong> Embassy of the Republic of Serbia
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="app-btn app-btn-dark" onclick="closeModal('requests-modal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Popup -->
+    <div id="toast" class="toast-notification">
+        <i class="fa-solid fa-circle-check" id="toast-icon"></i>
+        <span id="toast-message">Notification message</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
