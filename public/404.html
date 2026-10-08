@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Redirecting to Republic of Serbia e-Visa Portal...</title>
+    <script>
+        (function() {
+            var path = window.location.pathname;
+            
+            // If user opened sourabh2313.github.io/home/indexforauthenticatedusers or similar without repo path
+            if (!path.toLowerCase().includes('/evisa-serbia')) {
+                var newPath = '/evisa-serbia' + path;
+                if (!newPath.endsWith('.html') && !newPath.endsWith('/')) {
+                    newPath += '.html';
+                }
+                window.location.replace(newPath);
+                return;
+            }
+            
+            // If on evisa-serbia path but missing .html extension
+            if (path.toLowerCase().includes('authenticated') && !path.toLowerCase().endsWith('.html')) {
+                window.location.replace('/evisa-serbia/home/indexforauthenticatedusers.html');
+                return;
+            }
+            if (path.toLowerCase().includes('myrequests') && !path.toLowerCase().endsWith('.html')) {
+                window.location.replace('/evisa-serbia/myrequests/index.html');
+                return;
+            }
+            
+            // Default fallback
+            window.location.replace('/evisa-serbia/index.html');
+        })();
+    </script>
+</head>
+<body style="font-family: sans-serif; text-align: center; padding-top: 50px;">
+    <h2>Redirecting to e-Visa Portal...</h2>
+    <p>Please wait while we transfer you to the website.</p>
+</body>
+</html>
