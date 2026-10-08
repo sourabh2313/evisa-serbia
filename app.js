@@ -557,63 +557,47 @@ function checkSession() {
 }
 
 function getAuthRedirectUrl() {
-  const isFile = window.location.protocol === 'file:';
-  if (isFile) {
-    const href = window.location.href.toLowerCase();
-    const pathname = window.location.pathname.toLowerCase();
-    if (href.includes('myrequests') || pathname.includes('myrequests')) {
-      return '../home/indexforauthenticatedusers.html';
-    }
-    if (href.includes('home') || pathname.includes('home')) {
-      return 'indexforauthenticatedusers.html';
-    }
-    return 'home/indexforauthenticatedusers.html';
+  const href = window.location.href.toLowerCase();
+  const pathname = window.location.pathname.toLowerCase();
+  if (href.includes('myrequests') || pathname.includes('myrequests')) {
+    return '../home/indexforauthenticatedusers.html';
   }
-  return '/home/indexforauthenticatedusers';
+  if (href.includes('home') || pathname.includes('home')) {
+    return 'indexforauthenticatedusers.html';
+  }
+  return 'home/indexforauthenticatedusers.html';
 }
 
 function getHomeRedirectUrl() {
-  const isFile = window.location.protocol === 'file:';
-  if (isFile) {
-    const href = window.location.href.toLowerCase();
-    const pathname = window.location.pathname.toLowerCase();
-    if (href.includes('myrequests') || pathname.includes('myrequests') ||
-        href.includes('home') || pathname.includes('home')) {
-      return '../index.html';
-    }
-    return 'index.html';
+  const href = window.location.href.toLowerCase();
+  const pathname = window.location.pathname.toLowerCase();
+  if (href.includes('myrequests') || pathname.includes('myrequests') ||
+      href.includes('home') || pathname.includes('home')) {
+    return '../index.html';
   }
-  return '/';
+  return 'index.html';
 }
 
 function getMyRequestsRedirectUrl() {
-  const isFile = window.location.protocol === 'file:';
-  if (isFile) {
-    const href = window.location.href.toLowerCase();
-    const pathname = window.location.pathname.toLowerCase();
-    if (href.includes('home') || pathname.includes('home')) {
-      return '../myrequests/index.html';
-    }
-    if (href.includes('myrequests') || pathname.includes('myrequests')) {
-      return 'index.html';
-    }
-    return 'myrequests/index.html';
+  const href = window.location.href.toLowerCase();
+  const pathname = window.location.pathname.toLowerCase();
+  if (href.includes('home') || pathname.includes('home')) {
+    return '../myrequests/index.html';
   }
-  return '/myrequests/index';
+  if (href.includes('myrequests') || pathname.includes('myrequests')) {
+    return 'index.html';
+  }
+  return 'myrequests/index.html';
 }
 
 function getUnauthRedirectUrl() {
-  const isFile = window.location.protocol === 'file:';
-  if (isFile) {
-    const href = window.location.href.toLowerCase();
-    const pathname = window.location.pathname.toLowerCase();
-    if (href.includes('home') || href.includes('myrequests') ||
-        pathname.includes('home') || pathname.includes('myrequests')) {
-      return '../index.html';
-    }
-    return 'index.html';
+  const href = window.location.href.toLowerCase();
+  const pathname = window.location.pathname.toLowerCase();
+  if (href.includes('home') || href.includes('myrequests') ||
+      pathname.includes('home') || pathname.includes('myrequests')) {
+    return '../index.html';
   }
-  return '/';
+  return 'index.html';
 }
 
 function setAuthenticatedUI(user) {
