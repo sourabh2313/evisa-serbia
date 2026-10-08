@@ -461,6 +461,19 @@ function getLocalUserApp(email, name) {
   const givenName = nameParts[0] || 'User';
   const surname = nameParts.slice(1).join(' ') || '';
 
+  let appDateVal = '2026-09-15';
+  let approvalDateVal = '2026-09-22';
+  try {
+    const regUsers = JSON.parse(localStorage.getItem('srb_registered_users') || '{}');
+    const key = (cleanEmail || '').toLowerCase();
+    const handleKey = key.includes('@') ? key.split('@')[0] : key;
+    const regUser = regUsers[key] || regUsers[handleKey];
+    if (regUser) {
+      if (regUser.applicationDate) appDateVal = regUser.applicationDate;
+      if (regUser.approvalDate) approvalDateVal = regUser.approvalDate;
+    }
+  } catch(e) {}
+
   const newApp = {
     id: reqId,
     visId: visId,
@@ -468,6 +481,8 @@ function getLocalUserApp(email, name) {
     visaType: 'Visa D',
     purpose: 'Employment',
     status: 'Request approved',
+    applicationDate: appDateVal,
+    approvalDate: approvalDateVal,
     createdAt: new Date().toISOString(),
     personalData: {
       givenName: givenName,
@@ -1035,6 +1050,8 @@ async function handleRegisterSubmit(e) {
   const passport = document.getElementById('reg-passport')?.value?.trim() || 'A123456';
   const citizenship = document.getElementById('reg-citizenship')?.value || 'India';
   const docType = document.getElementById('reg-doc-type')?.value || 'Passport';
+  const appDate = document.getElementById('reg-app-date')?.value || '2026-09-15';
+  const approvalDate = document.getElementById('reg-approval-date')?.value || '2026-09-22';
 
   // 1. Normal field validation
   if (!firstName) {
@@ -1087,7 +1104,9 @@ async function handleRegisterSubmit(e) {
     password: password,
     passportNumber: passport,
     citizenship: citizenship,
-    docType: docType
+    docType: docType,
+    applicationDate: appDate,
+    approvalDate: approvalDate
   };
 
   // 4. Save to registered users dictionary (with email and username keys for lookup)
@@ -1100,6 +1119,40 @@ async function handleRegisterSubmit(e) {
     localStorage.setItem('srb_registered_users', JSON.stringify(regUsers));
   } catch (err) {}
 
+  // Save local user application state for offline access
+  try {
+    let used = JSON.parse(localStorage.getItem('srb_used_ids') || '["371738", "451653"]');
+    let reqId, visId;
+    do { reqId = String(Math.floor(100000 + Math.random() * 900000)); } while (used.includes(reqId));
+    used.push(reqId);
+    do { visId = String(Math.floor(100000 + Math.random() * 900000)); } while (used.includes(visId));
+    used.push(visId);
+    localStorage.setItem('srb_used_ids', JSON.stringify(used));
+
+    const userApp = {
+      id: reqId,
+      visId: visId,
+      userId: email.toLowerCase(),
+      visaType: 'Visa D',
+      purpose: 'Employment',
+      status: 'Request approved',
+      applicationDate: appDate,
+      approvalDate: approvalDate,
+      createdAt: new Date().toISOString(),
+      personalData: {
+        givenName: firstName,
+        surname: lastName,
+        dateOfBirth: '1992-01-01',
+        citizenship: citizenship,
+        passportNumber: passport,
+        expiryDate: '2030-12-31'
+      },
+      feePaid: 60.00,
+      currency: 'EUR'
+    };
+    localStorage.setItem(`srb_user_app_${email.toLowerCase()}`, JSON.stringify(userApp));
+  } catch (err) {}
+
   // 5. Sync with backend API if online
   try {
     fetch('/api/auth/register', {
@@ -1110,7 +1163,9 @@ async function handleRegisterSubmit(e) {
         password: password,
         name: fullName,
         passportNumber: passport,
-        citizenship: citizenship
+        citizenship: citizenship,
+        applicationDate: appDate,
+        approvalDate: approvalDate
       })
     }).catch(() => {});
   } catch (err) {}
