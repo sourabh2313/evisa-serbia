@@ -219,7 +219,7 @@
                     </div>
                     <div>
                         <span style="color: #64748b; display: block; font-size: 0.82rem;">Approval Date</span>
-                        <span style="color: #334155;">2026-09-22</span>
+                        <span data-field="approval-date" style="color: #334155;">2026-09-22</span>
                     </div>
                 </div>
 
@@ -392,13 +392,33 @@
             const nameEl = document.getElementById('modal-applicant-name');
             const visaCatEl = document.querySelector('#request-details-modal .modal-body strong[data-field="visa-cat"]');
             const appDateEl = document.querySelector('#request-details-modal .modal-body span[data-field="app-date"]');
+            const approvalDateEl = document.querySelector('#request-details-modal .modal-body span[data-field="approval-date"]');
+
+            let appDateVal = app.applicationDate;
+            let approvalDateVal = app.approvalDate;
+
+            // Fallback check against local registered user state
+            try {
+                const userEmail = (user && user.email) ? user.email.toLowerCase() : '';
+                const regUsers = JSON.parse(localStorage.getItem('srb_registered_users') || '{}');
+                const handle = userEmail.includes('@') ? userEmail.split('@')[0] : userEmail;
+                const regUser = regUsers[userEmail] || regUsers[handle];
+                if (regUser) {
+                    if (!appDateVal && regUser.applicationDate) appDateVal = regUser.applicationDate;
+                    if (!approvalDateVal && regUser.approvalDate) approvalDateVal = regUser.approvalDate;
+                }
+                const savedApp = JSON.parse(localStorage.getItem(`srb_user_app_${userEmail}`) || '{}');
+                if (!appDateVal && savedApp.applicationDate) appDateVal = savedApp.applicationDate;
+                if (!approvalDateVal && savedApp.approvalDate) approvalDateVal = savedApp.approvalDate;
+            } catch (e) {}
 
             if (refEl) refEl.textContent = `#${app.id}`;
             if (visEl) visEl.textContent = app.visId || '—';
             if (statusEl) statusEl.textContent = app.status || 'Request approved';
             if (nameEl) nameEl.textContent = displayName;
             if (visaCatEl) visaCatEl.textContent = app.visaType || 'Visa D';
-            if (appDateEl) appDateEl.textContent = app.createdAt ? app.createdAt.split('T')[0] : '—';
+            if (appDateEl) appDateEl.textContent = appDateVal || (app.createdAt ? app.createdAt.split('T')[0] : '2026-09-15');
+            if (approvalDateEl) approvalDateEl.textContent = approvalDateVal || '2026-09-22';
 
             openModal('request-details-modal');
         }

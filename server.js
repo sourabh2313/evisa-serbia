@@ -79,6 +79,8 @@ function loadData() {
           visaType: 'Visa D',
           purpose: 'Employment',
           status: 'Request approved',
+          applicationDate: '2026-09-15',
+          approvalDate: '2026-09-22',
           createdAt: new Date('2026-09-15').toISOString(),
           personalData: {
             givenName: 'Rahul',
@@ -155,7 +157,10 @@ app.post('/api/auth/login', (req, res) => {
 
   // Ensure user has a unique application entry with distinct Request Number & Vis ID
   let userApp = db.applications.find(a => a.userId.toLowerCase() === user.email.toLowerCase());
-  if (!userApp) {
+  if (userApp) {
+    if (user.applicationDate) userApp.applicationDate = user.applicationDate;
+    if (user.approvalDate) userApp.approvalDate = user.approvalDate;
+  } else {
     const { requestIds, visIds } = getUsedIds(db);
     const newRequestId = generateUniqueId(requestIds);
     const newVisId = generateUniqueId(visIds);
@@ -171,6 +176,8 @@ app.post('/api/auth/login', (req, res) => {
       visaType: 'Visa D',
       purpose: 'Employment',
       status: 'Request approved',
+      applicationDate: user.applicationDate || '2026-09-15',
+      approvalDate: user.approvalDate || '2026-09-22',
       createdAt: new Date().toISOString(),
       personalData: {
         givenName: givenName,
@@ -194,6 +201,8 @@ app.post('/api/auth/login', (req, res) => {
       name: user.name, 
       passportNumber: user.passportNumber,
       citizenship: user.citizenship,
+      applicationDate: userApp.applicationDate,
+      approvalDate: userApp.approvalDate,
       requestId: userApp.id,
       visId: userApp.visId
     } 
@@ -201,30 +210,36 @@ app.post('/api/auth/login', (req, res) => {
 });
 
 app.post('/api/auth/register', (req, res) => {
-  const { email, password, name, passportNumber, citizenship } = req.body;
+  const { email, password, name, passportNumber, citizenship, applicationDate, approvalDate } = req.body;
   if (!email || !name) {
     return res.status(400).json({ success: false, message: 'Email and Name are required.' });
   }
   const db = loadData();
   const existingIdx = db.users.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
-  const newUser = { email, password, name, passportNumber, citizenship };
+  const newUser = { email, password, name, passportNumber, citizenship, applicationDate, approvalDate };
   if (existingIdx >= 0) {
     db.users[existingIdx] = newUser;
   } else {
     db.users.push(newUser);
   }
 
-  // Auto-create a default application for the new user with unique request number & vis ID
+  const nameParts = name.trim().split(/\s+/);
+  const givenName = nameParts[0] || '';
+  const surname = nameParts.slice(1).join(' ') || '';
+
+  // Auto-create or update application for the new user with unique request number & vis ID
   let existingApp = db.applications.find(a => a.userId.toLowerCase() === email.toLowerCase());
-  if (!existingApp) {
+  if (existingApp) {
+    if (applicationDate) existingApp.applicationDate = applicationDate;
+    if (approvalDate) existingApp.approvalDate = approvalDate;
+    if (givenName) existingApp.personalData.givenName = givenName;
+    if (surname) existingApp.personalData.surname = surname;
+    if (citizenship) existingApp.personalData.citizenship = citizenship;
+    if (passportNumber) existingApp.personalData.passportNumber = passportNumber;
+  } else {
     const { requestIds, visIds } = getUsedIds(db);
     const newRequestId = generateUniqueId(requestIds);
     const newVisId = generateUniqueId(visIds);
-
-    // Parse first and last name from the full name
-    const nameParts = name.trim().split(/\s+/);
-    const givenName = nameParts[0] || '';
-    const surname = nameParts.slice(1).join(' ') || '';
 
     existingApp = {
       id: newRequestId,
@@ -233,6 +248,8 @@ app.post('/api/auth/register', (req, res) => {
       visaType: 'Visa D',
       purpose: 'Employment',
       status: 'Request approved',
+      applicationDate: applicationDate || '2026-09-15',
+      approvalDate: approvalDate || '2026-09-22',
       createdAt: new Date().toISOString(),
       personalData: {
         givenName: givenName,
@@ -249,7 +266,7 @@ app.post('/api/auth/register', (req, res) => {
   }
 
   saveData(db);
-  res.json({ success: true, user: { email, name, passportNumber, requestId: existingApp.id, visId: existingApp.visId } });
+  res.json({ success: true, user: { email, name, passportNumber, applicationDate: existingApp.applicationDate, approvalDate: existingApp.approvalDate, requestId: existingApp.id, visId: existingApp.visId } });
 });
 
 // Applications API
@@ -262,6 +279,13 @@ app.get('/api/applications', (req, res) => {
   if (userEmail) {
     // Filter applications strictly by the logged-in user's email
     userApps = db.applications.filter(a => a.userId.toLowerCase() === userEmail);
+    const foundUser = db.users.find(u => u.email.toLowerCase() === userEmail);
+    if (foundUser && userApps.length > 0) {
+      userApps.forEach(app => {
+        if (foundUser.applicationDate) app.applicationDate = foundUser.applicationDate;
+        if (foundUser.approvalDate) app.approvalDate = foundUser.approvalDate;
+      });
+    }
   }
 
   // If no application exists for this user email, auto-create a unique application for them
@@ -275,6 +299,8 @@ app.get('/api/applications', (req, res) => {
     const nameParts = fullName.trim().split(/\s+/);
     const givenName = nameParts[0] || 'User';
     const surname = nameParts.slice(1).join(' ') || '';
+    const appDateVal = foundUser?.applicationDate || '2026-09-15';
+    const approvalDateVal = foundUser?.approvalDate || '2026-09-22';
 
     const newApp = {
       id: newRequestId,
@@ -283,6 +309,8 @@ app.get('/api/applications', (req, res) => {
       visaType: 'Visa D',
       purpose: 'Employment',
       status: 'Request approved',
+      applicationDate: appDateVal,
+      approvalDate: approvalDateVal,
       createdAt: new Date().toISOString(),
       personalData: {
         givenName: givenName,
@@ -366,9 +394,43 @@ app.get('*', (req, res) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`\n==================================================`);
   console.log(` Serbia e-Visa Replica server running on port ${PORT}`);
-  console.log(` Access at: http://localhost:${PORT}`);
+  console.log(` Local Access: http://localhost:${PORT}`);
+  console.log(` Local Network Access: http://192.168.1.7:${PORT}`);
   console.log(`==================================================\n`);
+
+  // Auto-start Direct Public Internet Tunnel (localhost.run - Direct access without warning screen)
+  function launchTunnel() {
+    try {
+      const { spawn } = require('child_process');
+      const ssh = spawn('ssh', [
+        '-o', 'StrictHostKeyChecking=no',
+        '-o', 'ServerAliveInterval=15',
+        '-o', 'ServerAliveCountMax=3',
+        '-R', `80:localhost:${PORT}`,
+        'nokey@localhost.run'
+      ]);
+
+      const processOutput = (data) => {
+        const str = data.toString();
+        const match = str.match(/https:\/\/[a-zA-Z0-9\-_.]+\.lhr\.life/);
+        if (match) {
+          console.log(`\n==================================================`);
+          console.log(` Direct Public Internet URL: ${match[0]}`);
+          console.log(` (Direct access from any device without any warning screen)`);
+          console.log(`==================================================\n`);
+        }
+      };
+
+      if (ssh.stdout) ssh.stdout.on('data', processOutput);
+      if (ssh.stderr) ssh.stderr.on('data', processOutput);
+
+      ssh.on('close', () => {
+        setTimeout(launchTunnel, 2000);
+      });
+    } catch (err) {}
+  }
+  launchTunnel();
 });

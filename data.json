@@ -2,10 +2,12 @@
   "users": [
     {
       "email": "rahul.rana@gmail.com",
-      "password": "password123",
-      "name": "Rahul Rana",
-      "passportNumber": "N12345678",
-      "citizenship": "United States"
+      "password": "1234",
+      "name": "RAHUL RANA",
+      "passportNumber": "123456789",
+      "citizenship": "United States",
+      "applicationDate": "2026-09-01",
+      "approvalDate": "2026-09-30"
     },
     {
       "email": "karan.nagpal@gmail.com",
@@ -20,6 +22,13 @@
       "name": "RAHUL BHARDWAJ",
       "passportNumber": "D2345678",
       "citizenship": "India"
+    },
+    {
+      "email": "test.user@gmail.com",
+      "password": "password123",
+      "name": "Test User",
+      "passportNumber": "T9999999",
+      "citizenship": "India"
     }
   ],
   "applications": [
@@ -30,13 +39,15 @@
       "visaType": "Visa D",
       "purpose": "Employment",
       "status": "Request approved",
+      "applicationDate": "2026-09-01",
+      "approvalDate": "2026-09-30",
       "createdAt": "2026-09-15T00:00:00.000Z",
       "personalData": {
-        "givenName": "Rahul",
-        "surname": "Rana",
+        "givenName": "RAHUL",
+        "surname": "RANA",
         "dateOfBirth": "1990-05-14",
         "citizenship": "United States",
-        "passportNumber": "N12345678",
+        "passportNumber": "123456789",
         "expiryDate": "2030-05-14"
       },
       "feePaid": 60,
@@ -49,6 +60,8 @@
       "visaType": "Visa D",
       "purpose": "Employment",
       "status": "Request approved",
+      "applicationDate": "2026-09-15",
+      "approvalDate": "2026-09-22",
       "createdAt": "2026-09-16T00:00:00.000Z",
       "personalData": {
         "givenName": "Karan",
@@ -68,6 +81,8 @@
       "visaType": "Visa D",
       "purpose": "Employment",
       "status": "Request approved",
+      "applicationDate": "2026-09-15",
+      "approvalDate": "2026-09-22",
       "createdAt": "2026-09-17T00:00:00.000Z",
       "personalData": {
         "givenName": "Rahul",
@@ -76,6 +91,27 @@
         "citizenship": "India",
         "passportNumber": "D2345678",
         "expiryDate": "2031-03-10"
+      },
+      "feePaid": 60,
+      "currency": "EUR"
+    },
+    {
+      "id": "487111",
+      "visId": "401691",
+      "userId": "test.user@gmail.com",
+      "visaType": "Visa D",
+      "purpose": "Employment",
+      "status": "Request approved",
+      "applicationDate": "2026-09-15",
+      "approvalDate": "2026-09-22",
+      "createdAt": "2026-10-05T12:34:57.678Z",
+      "personalData": {
+        "givenName": "Test",
+        "surname": "User",
+        "dateOfBirth": "1992-01-01",
+        "citizenship": "India",
+        "passportNumber": "T9999999",
+        "expiryDate": "2030-12-31"
       },
       "feePaid": 60,
       "currency": "EUR"
