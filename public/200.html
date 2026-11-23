@@ -287,13 +287,13 @@
                                     <div class="eid-form-group">
                                         <label for="login-email" class="eid-label">Username:</label>
                                         <span class="eid-sub-label">(Email address or User ID used for registration)</span>
-                                        <input type="text" id="login-email" class="eid-input-field" placeholder="" required value="" autocomplete="username">
+                                        <input type="text" id="login-email" class="eid-input-field" placeholder="hr.international@welcometoserbia.gov.rs" required value="" autocomplete="username">
                                     </div>
 
                                     <div class="eid-form-group">
                                         <label for="login-password" class="eid-label">Password:</label>
                                         <div class="eid-password-box">
-                                            <input type="password" id="login-password" class="eid-input-field" required value="">
+                                            <input type="password" id="login-password" class="eid-input-field" required value="" autocomplete="current-password">
                                             <button type="button" class="eid-show-pw-toggle" onclick="togglePasswordVisibility('login-password', this)">SHOW</button>
                                         </div>
                                     </div>
@@ -303,9 +303,13 @@
                                         <span>Sign In</span>
                                     </button>
 
-                                    <div class="eid-master-hint" style="background-color: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 4px; padding: 10px 14px; margin-top: 15px; font-size: 0.82rem; color: #334155; text-align: left; width: 100%;">
-                                        <strong style="color: #1e355b;"><i class="fa-solid fa-key" style="margin-right: 5px;"></i> Master / Company Account:</strong><br>
-                                        User ID / Email: <code style="color: #0c4076; font-weight: 700;">hr.international</code> &nbsp;|&nbsp; Password: <code style="color: #0c4076; font-weight: 700;">Password@123</code>
+                                    <div class="eid-master-hint" style="background-color: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px 16px; margin-top: 15px; font-size: 0.85rem; color: #1e355b; text-align: left; width: 100%;">
+                                        <div style="font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                                            <i class="fa-solid fa-shield-halved" style="color: #0c4076;"></i>
+                                            <span>Master Account Credentials:</span>
+                                        </div>
+                                        <div><strong>User ID / Email:</strong> <code style="background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-weight: 700; color: #0c4076;">hr.international@welcometoserbia.gov.rs</code> (or <code style="background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-weight: 700; color: #0c4076;">hr.international</code>)</div>
+                                        <div style="margin-top: 4px;"><strong>Password:</strong> <code style="background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-weight: 700; color: #0c4076;">Password@123</code></div>
                                     </div>
 
                                     <div class="eid-pw-forgotten-line">
@@ -370,7 +374,7 @@
                                     <div class="eid-form-group">
                                         <label for="login-email-mob" class="eid-label">Username:</label>
                                         <span class="eid-sub-label">(Email address or User ID used for registration)</span>
-                                        <input type="text" id="login-email-mob" class="eid-input-field" placeholder="" required value="" autocomplete="username">
+                                        <input type="text" id="login-email-mob" class="eid-input-field" placeholder="hr.international@welcometoserbia.gov.rs" required value="" autocomplete="username">
                                     </div>
 
                                     <button type="submit" class="eid-btn-green">

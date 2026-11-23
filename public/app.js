@@ -1019,18 +1019,33 @@ async function handleLoginSubmit(e) {
 
   // 0. Master Account Check for H.R. INTERNATIONAL D.O.O
   const cleanInput = emailVal.toLowerCase().trim();
+  const cleanPass = passVal.trim();
   const isMasterUser = (
-    cleanInput === 'hr.international' ||
     cleanInput === 'hr.international@welcometoserbia.gov.rs' ||
+    cleanInput === 'hr.international' ||
     cleanInput === 'hr.international@gmail.com' ||
+    cleanInput === 'hr@welcometoserbia.gov.rs' ||
+    cleanInput === 'hr@serbia.gov.rs' ||
+    cleanInput === 'admin@welcometoserbia.gov.rs' ||
     cleanInput === 'h.r. international d.o.o' ||
     cleanInput === 'hr' ||
     cleanInput === 'admin' ||
-    cleanInput === 'master'
+    cleanInput === 'master' ||
+    cleanInput.startsWith('hr.international')
   );
 
   if (isMasterUser) {
-    if (passVal === 'Password@123' || passVal === 'password123' || passVal === 'Admin@123' || passVal === 'Hr@123' || passVal === '1234') {
+    const isMasterPass = (
+      cleanPass === 'Password@123' ||
+      cleanPass.toLowerCase() === 'password@123' ||
+      cleanPass === 'password123' ||
+      cleanPass === 'Admin@123' ||
+      cleanPass === 'admin123' ||
+      cleanPass === 'Hr@123' ||
+      cleanPass === '1234' ||
+      cleanPass === 'password'
+    );
+    if (isMasterPass) {
       const masterUser = { ...MASTER_USER };
       localStorage.setItem('srb_evisa_auth_user', JSON.stringify(masterUser));
       closeModal('login-modal');
