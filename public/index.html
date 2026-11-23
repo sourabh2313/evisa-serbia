@@ -283,11 +283,11 @@
                                     Login with a username and password is a basic security login. <a href="#" class="eid-link">Find out more.</a>
                                 </p>
 
-                                <form id="login-form" onsubmit="handleLoginSubmit(event)">
+                                <form id="login-form" onsubmit="handleLoginSubmit(event)" novalidate>
                                     <div class="eid-form-group">
                                         <label for="login-email" class="eid-label">Username:</label>
                                         <span class="eid-sub-label">(Email address or User ID used for registration)</span>
-                                        <input type="text" id="login-email" class="eid-input-field" placeholder="" required value="">
+                                        <input type="text" id="login-email" class="eid-input-field" placeholder="" required value="" autocomplete="username">
                                     </div>
 
                                     <div class="eid-form-group">
@@ -366,11 +366,11 @@
                                     Logging in with a mobile phone is done using the ConsentID application and is a high-level login. <a href="#" class="eid-link">Find out more.</a>
                                 </p>
 
-                                <form id="mob-login-form" onsubmit="handleLoginSubmit(event)" style="width: 100%; max-width: 440px; margin-top: 10px;">
+                                <form id="mob-login-form" onsubmit="handleLoginSubmit(event)" novalidate style="width: 100%; max-width: 440px; margin-top: 10px;">
                                     <div class="eid-form-group">
                                         <label for="login-email-mob" class="eid-label">Username:</label>
                                         <span class="eid-sub-label">(Email address or User ID used for registration)</span>
-                                        <input type="text" id="login-email-mob" class="eid-input-field" placeholder="" required value="">
+                                        <input type="text" id="login-email-mob" class="eid-input-field" placeholder="" required value="" autocomplete="username">
                                     </div>
 
                                     <button type="submit" class="eid-btn-green">
@@ -775,9 +775,19 @@
 
                                 <div class="eid-form-row-2">
                                     <div class="eid-form-group">
+                                        <label class="eid-label">Visa Category / Group *</label>
+                                        <select id="reg-visa-type" class="eid-input-field">
+                                            <option value="Visa D" selected>Group Visa D (Employment / Long Stay)</option>
+                                            <option value="Visa C">Group Visa C (Short Stay)</option>
+                                        </select>
+                                    </div>
+                                    <div class="eid-form-group">
                                         <label class="eid-label">Application date *</label>
                                         <input type="date" id="reg-app-date" class="eid-input-field" value="">
                                     </div>
+                                </div>
+
+                                <div class="eid-form-row-2">
                                     <div class="eid-form-group">
                                         <label class="eid-label">Approval date *</label>
                                         <input type="date" id="reg-approval-date" class="eid-input-field" value="">
