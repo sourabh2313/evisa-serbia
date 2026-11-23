@@ -49,11 +49,10 @@
                 <div class="app-header__main__actions-holder">
                     <div id="user-nav-area" style="height: 100%;">
                         <div class="main-link-button white-button auth-user-box" id="auth-user-box" onclick="toggleUserDropdown(event)" title="Account options">
-                            <span class="auth-user-name" id="auth-user-name">Rahul Rana</span>
-                            <i class="fa-regular fa-circle-user" style="font-size: 1.35rem; color: #253956; margin-left: 10px;"></i>
+                            <span class="auth-user-name" id="auth-user-name" style="font-weight: 700; color: #1e355b;">H.R. INTERNATIONAL D.O.O</span>
                             <div id="auth-user-dropdown" class="auth-user-dropdown">
                                 <div class="auth-dropdown-item-header">Signed in as</div>
-                                <div class="auth-dropdown-item-user" id="auth-dropdown-user-name">Rahul Rana</div>
+                                <div class="auth-dropdown-item-user" id="auth-dropdown-user-name">H.R. INTERNATIONAL D.O.O</div>
                                 <div class="auth-dropdown-divider"></div>
                                 <a href="javascript:void(0)" class="auth-dropdown-link" onclick="handleLogout(event)">
                                     <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
@@ -88,52 +87,33 @@
         </div>
     </header>
 
-    <!-- Main Content Area: List of previously sent requests matching media_1790411683623.png -->
+    <!-- Main Content Area: List of previously sent requests matching media_1795450793508_fd53fc5d.jpg -->
     <main class="myrequests-main">
         <div class="app-container">
             <h1 class="myrequests-page-title" data-i18n="myRequestsTitle">List of previously sent requests</h1>
 
-            <div class="myrequests-table-wrapper">
-                <div class="myrequests-row">
-                    <!-- Request number -->
-                    <div class="myrequests-col">
-                        <span class="myrequests-col-label">Request number</span>
-                        <span class="myrequests-col-val" id="req-number">371738</span>
-                    </div>
+            <!-- Category Filter Tabs: All, Group Visa D, Group Visa C -->
+            <div class="myrequests-filter-bar">
+                <button class="myrequests-filter-btn active" id="filter-btn-all" onclick="filterRequestsByCategory('all')">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>All Requests</span>
+                    <span class="myrequests-filter-count" id="count-all">15</span>
+                </button>
+                <button class="myrequests-filter-btn" id="filter-btn-d" onclick="filterRequestsByCategory('Visa D')">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <span>Group Visa D (Employment)</span>
+                    <span class="myrequests-filter-count" id="count-d">15</span>
+                </button>
+                <button class="myrequests-filter-btn" id="filter-btn-c" onclick="filterRequestsByCategory('Visa C')">
+                    <i class="fa-solid fa-passport"></i>
+                    <span>Group Visa C (Short Stay)</span>
+                    <span class="myrequests-filter-count" id="count-c">0</span>
+                </button>
+            </div>
 
-                    <!-- First and last name: dynamically displays logged-in user name -->
-                    <div class="myrequests-col">
-                        <span class="myrequests-col-label">First and last name</span>
-                        <span class="myrequests-col-val" id="req-user-name">Rahul Rana</span>
-                    </div>
-
-                    <!-- Status -->
-                    <div class="myrequests-col">
-                        <span class="myrequests-col-label">Status</span>
-                        <div>
-                            <span class="myrequests-status-badge">Request approved</span>
-                        </div>
-                    </div>
-
-                    <!-- Visa -->
-                    <div class="myrequests-col">
-                        <span class="myrequests-col-label">Visa</span>
-                        <span class="myrequests-col-val" id="req-visa-type">Visa D</span>
-                    </div>
-
-                    <!-- Vis Id -->
-                    <div class="myrequests-col">
-                        <span class="myrequests-col-label">Vis Id</span>
-                        <span class="myrequests-col-val" id="req-vis-id">451653</span>
-                    </div>
-
-                    <!-- Action Button: Open Request -->
-                    <div class="myrequests-col myrequests-col-action">
-                        <button class="myrequests-open-btn" onclick="openRequestDetailsModal()">
-                            Open<br>Request
-                        </button>
-                    </div>
-                </div>
+            <!-- Table Container matching media_1795450793508_fd53fc5d.jpg -->
+            <div class="myrequests-table-wrapper" id="requests-table-container">
+                <!-- Dynamically populated rows -->
             </div>
         </div>
     </main>
@@ -166,6 +146,12 @@
             </div>
         </div>
     </footer>
+
+    <!-- Screenshot Bottom URL Footer matching media_1795450793508_fd53fc5d.jpg -->
+    <div class="myrequests-print-footer-bar">
+        <span>https://evisa.welcometoserbia.gov.rs/PaymentFee/SuccessPage?ExternalExecutedServiceId=ecd4e32a-4673-41c3-8098-f0c5330b4ef5&amp;AuthCode=134056&amp;TransactionAmount=3.515%2c01&amp;CommissionFee=70%...</span>
+        <span style="font-weight: 600;">1/1</span>
+    </div>
 
     <!-- Official Request Details Modal -->
     <div id="request-details-modal" class="modal-overlay">
@@ -293,13 +279,14 @@
 
     <script src="../app.js"></script>
     <script>
-        // Store loaded applications for modal access
-        let loadedApplications = [];
+        // Store all applications and active filter
+        let allMasterList = [];
+        let currentlyDisplayed = [];
+        let activeCategory = 'all';
 
         document.addEventListener('DOMContentLoaded', async () => {
             const user = getLoggedInUser();
-            const displayName = (user && user.name && user.name.toUpperCase() !== 'JOHN DOE' && user.name.toUpperCase() !== 'USER') ? user.name : 'Rahul Rana';
-            const userEmail = (user && user.email) ? user.email : 'rahul.rana@gmail.com';
+            const displayName = (user && user.name) ? user.name : 'H.R. INTERNATIONAL D.O.O';
 
             // Update header user name displays
             const topUserEl = document.getElementById('auth-user-name');
@@ -307,85 +294,143 @@
             const dropUserEl = document.getElementById('auth-dropdown-user-name');
             if (dropUserEl) dropUserEl.textContent = displayName;
 
-            // Fetch applications from API for this user
+            // Load master applications list (combines screenshot 15 records + all registered users)
+            if (typeof getMasterApplications === 'function') {
+                allMasterList = getMasterApplications();
+            } else {
+                allMasterList = (typeof DEFAULT_MASTER_REQUESTS !== 'undefined') ? [...DEFAULT_MASTER_REQUESTS] : [];
+            }
+
+            // Also attempt backend API if available
             try {
-                const resp = await fetch(`/api/applications?email=${encodeURIComponent(userEmail)}&name=${encodeURIComponent(displayName)}`);
+                const resp = await fetch('/api/applications?role=master');
                 const data = await resp.json();
                 if (data.success && data.applications && data.applications.length > 0) {
-                    loadedApplications = data.applications;
-                    renderApplicationsList(data.applications, displayName);
+                    // Merge any server-created applications
+                    const existingIds = new Set(allMasterList.map(a => String(a.id)));
+                    data.applications.forEach(a => {
+                        if (!existingIds.has(String(a.id))) {
+                            const name = (a.personalData && a.personalData.givenName)
+                                ? `${a.personalData.givenName} ${a.personalData.surname || ''}`.trim().toUpperCase()
+                                : (a.name || 'APPLICANT');
+                            allMasterList.push({
+                                id: a.id,
+                                visId: a.visId || '—',
+                                name: name,
+                                status: a.status || 'Request Approved',
+                                visaType: a.visaType || 'Visa D',
+                                purpose: a.purpose || 'Employment',
+                                appDate: a.applicationDate || '2026-09-15',
+                                approvalDate: a.approvalDate || '2026-09-22',
+                                passportNumber: (a.personalData && a.personalData.passportNumber) || 'A1234567',
+                                citizenship: (a.personalData && a.personalData.citizenship) || 'India'
+                            });
+                        }
+                    });
                 }
-            } catch (err) {
-                console.error('Failed to fetch applications:', err);
-                if (typeof getLocalUserApp === 'function') {
-                    const localApp = getLocalUserApp(userEmail, displayName);
-                    loadedApplications = [localApp];
-                    renderApplicationsList([localApp], displayName);
-                }
-            }
+            } catch (err) {}
+
+            updateCategoryCounts();
+            filterRequestsByCategory('all');
         });
 
-        function renderApplicationsList(applications, fallbackName) {
-            const wrapper = document.querySelector('.myrequests-table-wrapper');
-            if (!wrapper) return;
-            wrapper.innerHTML = ''; // Clear existing hardcoded row
+        function updateCategoryCounts() {
+            const countAll = allMasterList.length;
+            const countD = allMasterList.filter(a => (a.visaType || '').toUpperCase().includes('VISA D') || !(a.visaType || '').toUpperCase().includes('VISA C')).length;
+            const countC = allMasterList.filter(a => (a.visaType || '').toUpperCase().includes('VISA C')).length;
 
-            applications.forEach((app, index) => {
-                const appName = (app.personalData && app.personalData.givenName)
-                    ? `${app.personalData.givenName} ${app.personalData.surname || ''}`.trim().toUpperCase()
-                    : (fallbackName || 'RAHUL RANA').toUpperCase();
+            const elAll = document.getElementById('count-all');
+            const elD = document.getElementById('count-d');
+            const elC = document.getElementById('count-c');
 
-                const row = document.createElement('div');
-                row.className = 'myrequests-row';
-                row.innerHTML = `
-                    <!-- Request number -->
-                    <div class="myrequests-col">
-                        <span class="myrequests-col-label">Request number</span>
-                        <span class="myrequests-col-val">${app.id}</span>
-                    </div>
-                    <!-- First and last name -->
-                    <div class="myrequests-col">
-                        <span class="myrequests-col-label">First and last name</span>
-                        <span class="myrequests-col-val">${appName}</span>
-                    </div>
-                    <!-- Status -->
-                    <div class="myrequests-col">
-                        <span class="myrequests-col-label">Status</span>
-                        <div>
-                            <span class="myrequests-status-badge">${app.status || 'Request approved'}</span>
-                        </div>
-                    </div>
-                    <!-- Visa -->
-                    <div class="myrequests-col">
-                        <span class="myrequests-col-label">Visa</span>
-                        <span class="myrequests-col-val">${app.visaType || 'Visa D'}</span>
-                    </div>
-                    <!-- Vis Id -->
-                    <div class="myrequests-col">
-                        <span class="myrequests-col-label">Vis Id</span>
-                        <span class="myrequests-col-val">${app.visId || '—'}</span>
-                    </div>
-                    <!-- Action Button -->
-                    <div class="myrequests-col myrequests-col-action">
-                        <button class="myrequests-open-btn" onclick="openRequestDetailsModal(${index})">
-                            Open<br>Request
-                        </button>
+            if (elAll) elAll.textContent = countAll;
+            if (elD) elD.textContent = countD;
+            if (elC) elC.textContent = countC;
+        }
+
+        function filterRequestsByCategory(category) {
+            activeCategory = category;
+
+            // Update filter button styling
+            const btnAll = document.getElementById('filter-btn-all');
+            const btnD = document.getElementById('filter-btn-d');
+            const btnC = document.getElementById('filter-btn-c');
+
+            if (btnAll) btnAll.classList.toggle('active', category === 'all');
+            if (btnD) btnD.classList.toggle('active', category === 'Visa D');
+            if (btnC) btnC.classList.toggle('active', category === 'Visa C');
+
+            // Also update top header navigation tabs
+            const navLinks = document.querySelectorAll('.auth-nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            if (category === 'Visa C') {
+                const cLink = document.querySelector('.auth-nav-link[data-i18n="visaC"]');
+                if (cLink) cLink.classList.add('active');
+            } else if (category === 'Visa D') {
+                const dLink = document.querySelector('.auth-nav-link[data-i18n="visaD"]');
+                if (dLink) dLink.classList.add('active');
+            } else {
+                const reqLink = document.querySelector('.auth-nav-link[data-i18n="myRequests"]');
+                if (reqLink) reqLink.classList.add('active');
+            }
+
+            // Filter array
+            if (category === 'Visa D') {
+                currentlyDisplayed = allMasterList.filter(a => (a.visaType || '').toUpperCase().includes('VISA D') || !(a.visaType || '').toUpperCase().includes('VISA C'));
+            } else if (category === 'Visa C') {
+                currentlyDisplayed = allMasterList.filter(a => (a.visaType || '').toUpperCase().includes('VISA C'));
+            } else {
+                currentlyDisplayed = [...allMasterList];
+            }
+
+            renderApplicationsList(currentlyDisplayed);
+        }
+
+        function renderApplicationsList(applications) {
+            const container = document.getElementById('requests-table-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (applications.length === 0) {
+                container.innerHTML = `
+                    <div style="padding: 40px; text-align: center; color: #64748b; font-size: 1rem;">
+                        <i class="fa-solid fa-folder-open" style="font-size: 2rem; margin-bottom: 12px; display: block; color: #94a3b8;"></i>
+                        No requests found for this category.
                     </div>
                 `;
-                wrapper.appendChild(row);
+                return;
+            }
+
+            applications.forEach((app, index) => {
+                const block = document.createElement('div');
+                block.className = 'myrequests-item-block';
+                block.setAttribute('onclick', `openRequestDetailsModal(${index})`);
+                block.setAttribute('title', 'Click to view official application decision');
+
+                block.innerHTML = `
+                    <div class="myrequests-grid-row myrequests-grid-labels">
+                        <div>Submitted request ID</div>
+                        <div>Visa Request ID</div>
+                        <div>First and last Name</div>
+                        <div>Status</div>
+                    </div>
+                    <div class="myrequests-grid-row myrequests-grid-values">
+                        <div>${app.id}</div>
+                        <div>${app.visId || '—'}</div>
+                        <div>${app.name}</div>
+                        <div>
+                            <span class="myrequests-status-badge">${app.status || 'Request Approved'}</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(block);
             });
         }
 
-        function openRequestDetailsModal(appIndex) {
-            const app = loadedApplications[appIndex || 0];
+        function openRequestDetailsModal(index) {
+            const app = currentlyDisplayed[index];
             if (!app) return;
 
-            const user = getLoggedInUser();
-            const displayName = (app.personalData && app.personalData.givenName)
-                ? `${app.personalData.givenName} ${app.personalData.surname || ''}`.trim()
-                : (user && user.name ? user.name : 'Rahul Rana');
-
-            // Update modal fields dynamically
             const refEl = document.querySelector('#request-details-modal .modal-body strong[data-field="request-ref"]');
             const visEl = document.querySelector('#request-details-modal .modal-body strong[data-field="vis-id"]');
             const statusEl = document.querySelector('#request-details-modal .modal-body .myrequests-status-badge');
@@ -394,31 +439,13 @@
             const appDateEl = document.querySelector('#request-details-modal .modal-body span[data-field="app-date"]');
             const approvalDateEl = document.querySelector('#request-details-modal .modal-body span[data-field="approval-date"]');
 
-            let appDateVal = app.applicationDate;
-            let approvalDateVal = app.approvalDate;
-
-            // Fallback check against local registered user state
-            try {
-                const userEmail = (user && user.email) ? user.email.toLowerCase() : '';
-                const regUsers = JSON.parse(localStorage.getItem('srb_registered_users') || '{}');
-                const handle = userEmail.includes('@') ? userEmail.split('@')[0] : userEmail;
-                const regUser = regUsers[userEmail] || regUsers[handle];
-                if (regUser) {
-                    if (!appDateVal && regUser.applicationDate) appDateVal = regUser.applicationDate;
-                    if (!approvalDateVal && regUser.approvalDate) approvalDateVal = regUser.approvalDate;
-                }
-                const savedApp = JSON.parse(localStorage.getItem(`srb_user_app_${userEmail}`) || '{}');
-                if (!appDateVal && savedApp.applicationDate) appDateVal = savedApp.applicationDate;
-                if (!approvalDateVal && savedApp.approvalDate) approvalDateVal = savedApp.approvalDate;
-            } catch (e) {}
-
             if (refEl) refEl.textContent = `#${app.id}`;
             if (visEl) visEl.textContent = app.visId || '—';
-            if (statusEl) statusEl.textContent = app.status || 'Request approved';
-            if (nameEl) nameEl.textContent = displayName;
-            if (visaCatEl) visaCatEl.textContent = app.visaType || 'Visa D';
-            if (appDateEl) appDateEl.textContent = appDateVal || (app.createdAt ? app.createdAt.split('T')[0] : '2026-09-15');
-            if (approvalDateEl) approvalDateEl.textContent = approvalDateVal || '2026-09-22';
+            if (statusEl) statusEl.textContent = app.status || 'Request Approved';
+            if (nameEl) nameEl.textContent = app.name;
+            if (visaCatEl) visaCatEl.textContent = `${app.visaType || 'Visa D'} (${app.purpose || 'Employment / Work Contract'})`;
+            if (appDateEl) appDateEl.textContent = app.appDate || '2026-09-10';
+            if (approvalDateEl) approvalDateEl.textContent = app.approvalDate || '2026-09-18';
 
             openModal('request-details-modal');
         }

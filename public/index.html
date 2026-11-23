@@ -286,8 +286,8 @@
                                 <form id="login-form" onsubmit="handleLoginSubmit(event)">
                                     <div class="eid-form-group">
                                         <label for="login-email" class="eid-label">Username:</label>
-                                        <span class="eid-sub-label">(Email address used for registration)</span>
-                                        <input type="email" id="login-email" class="eid-input-field" placeholder="" required value="">
+                                        <span class="eid-sub-label">(Email address or User ID used for registration)</span>
+                                        <input type="text" id="login-email" class="eid-input-field" placeholder="" required value="">
                                     </div>
 
                                     <div class="eid-form-group">
@@ -302,6 +302,11 @@
                                         <i class="fa-solid fa-right-to-bracket" style="font-size: 1rem;"></i>
                                         <span>Sign In</span>
                                     </button>
+
+                                    <div class="eid-master-hint" style="background-color: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 4px; padding: 10px 14px; margin-top: 15px; font-size: 0.82rem; color: #334155; text-align: left; width: 100%;">
+                                        <strong style="color: #1e355b;"><i class="fa-solid fa-key" style="margin-right: 5px;"></i> Master / Company Account:</strong><br>
+                                        User ID / Email: <code style="color: #0c4076; font-weight: 700;">hr.international</code> &nbsp;|&nbsp; Password: <code style="color: #0c4076; font-weight: 700;">Password@123</code>
+                                    </div>
 
                                     <div class="eid-pw-forgotten-line">
                                         <a href="#" onclick="alert('Password reset link sent to your registered email address.'); return false;" class="eid-link">Password forgotten</a>
@@ -364,8 +369,8 @@
                                 <form id="mob-login-form" onsubmit="handleLoginSubmit(event)" style="width: 100%; max-width: 440px; margin-top: 10px;">
                                     <div class="eid-form-group">
                                         <label for="login-email-mob" class="eid-label">Username:</label>
-                                        <span class="eid-sub-label">(Email address used for registration)</span>
-                                        <input type="email" id="login-email-mob" class="eid-input-field" placeholder="" required value="">
+                                        <span class="eid-sub-label">(Email address or User ID used for registration)</span>
+                                        <input type="text" id="login-email-mob" class="eid-input-field" placeholder="" required value="">
                                     </div>
 
                                     <button type="submit" class="eid-btn-green">

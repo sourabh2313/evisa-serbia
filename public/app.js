@@ -412,10 +412,91 @@ function resolveUserName(input) {
   return formatted.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
 }
 
+// Master Company User & Preloaded Requests matching media_1795450793508_fd53fc5d.jpg
+const MASTER_USER = {
+  name: 'H.R. INTERNATIONAL D.O.O',
+  email: 'hr.international@welcometoserbia.gov.rs',
+  username: 'hr.international',
+  role: 'master',
+  isMaster: true,
+  passportNumber: 'SRB-CO-778899',
+  citizenship: 'Republic of Serbia'
+};
+
+const DEFAULT_MASTER_REQUESTS = [
+  { id: "499249", visId: "597275", name: "CHITRA OLI", status: "Request Approved", visaType: "Visa D", purpose: "Employment", appDate: "2026-09-10", approvalDate: "2026-09-18", passportNumber: "P8921453", citizenship: "Nepal" },
+  { id: "499250", visId: "597276", name: "ARUN OLI", status: "Request Approved", visaType: "Visa D", purpose: "Employment", appDate: "2026-09-10", approvalDate: "2026-09-18", passportNumber: "P8921454", citizenship: "Nepal" },
+  { id: "499251", visId: "597277", name: "SUNITA NARAYAN PANTHI", status: "Request Approved", visaType: "Visa D", purpose: "Employment", appDate: "2026-09-10", approvalDate: "2026-09-18", passportNumber: "P8921455", citizenship: "Nepal" },
+  { id: "499252", visId: "597278", name: "RAJ NARAYAN PANTHI", status: "Request Approved", visaType: "Visa D", purpose: "Employment", appDate: "2026-09-11", approvalDate: "2026-09-19", passportNumber: "P8921456", citizenship: "Nepal" },
+  { id: "499253", visId: "597279", name: "POM NARAYAN PANTHI", status: "Request Approved", visaType: "Visa D", purpose: "Employment", appDate: "2026-09-11", approvalDate: "2026-09-19", passportNumber: "P8921457", citizenship: "Nepal" },
+  { id: "499254", visId: "597280", name: "BISHAL SHAH", status: "Request Approved", visaType: "Visa D", purpose: "Employment", appDate: "2026-09-11", approvalDate: "2026-09-19", passportNumber: "P8921458", citizenship: "Nepal" },
+  { id: "499255", visId: "597281", name: "GOPAL SHAH", status: "Request Approved", visaType: "Visa D", purpose: "Employment", appDate: "2026-09-12", approvalDate: "2026-09-20", passportNumber: "P8921459", citizenship: "Nepal" },
+  { id: "499256", visId: "597282", name: "CHITRA BAHADUR DANGI", status: "Request Approved", visaType: "Visa D", purpose: "Employment", appDate: "2026-09-12", approvalDate: "2026-09-20", passportNumber: "P8921460", citizenship: "Nepal" },
+  { id: "499257", visId: "597283", name: "RAJ BAHADUR DANGI", status: "Request Approved", visaType: "Visa D", purpose: "Employment", appDate: "2026-09-12", approvalDate: "2026-09-20", passportNumber: "P8921461", citizenship: "Nepal" },
+  { id: "499258", visId: "597284", name: "PAWAN BUDHA", status: "Request Approved", visaType: "Visa D", purpose: "Employment", appDate: "2026-09-13", approvalDate: "2026-09-21", passportNumber: "P8921462", citizenship: "Nepal" },
+  { id: "499259", visId: "597285", name: "BIJAY GAUTAM", status: "Request Approved", visaType: "Visa D", purpose: "Employment", appDate: "2026-09-13", approvalDate: "2026-09-21", passportNumber: "P8921463", citizenship: "Nepal" },
+  { id: "499260", visId: "597286", name: "RAJKUMAR GAUTAM", status: "Request Approved", visaType: "Visa D", purpose: "Employment", appDate: "2026-09-13", approvalDate: "2026-09-21", passportNumber: "P8921464", citizenship: "Nepal" },
+  { id: "499261", visId: "597287", name: "RAJ BAHADUR NEPALI", status: "Request Approved", visaType: "Visa D", purpose: "Employment", appDate: "2026-09-14", approvalDate: "2026-09-22", passportNumber: "P8921465", citizenship: "Nepal" },
+  { id: "499262", visId: "597288", name: "GOPAL CHETRI", status: "Request Approved", visaType: "Visa D", purpose: "Employment", appDate: "2026-09-14", approvalDate: "2026-09-22", passportNumber: "P8921466", citizenship: "Nepal" },
+  { id: "499263", visId: "597289", name: "SUNIL CHETRI", status: "Request Approved", visaType: "Visa D", purpose: "Employment", appDate: "2026-09-14", approvalDate: "2026-09-22", passportNumber: "P8921467", citizenship: "Nepal" }
+];
+
+function getMasterApplications() {
+  let list = [...DEFAULT_MASTER_REQUESTS];
+  try {
+    const customApps = JSON.parse(localStorage.getItem('srb_custom_created_apps') || '[]');
+    customApps.forEach(ca => {
+      const name = (ca.personalData && ca.personalData.givenName) 
+        ? `${ca.personalData.givenName} ${ca.personalData.surname || ''}`.trim().toUpperCase()
+        : (ca.name || 'APPLICANT');
+      list.push({
+        id: ca.id,
+        visId: ca.visId || '—',
+        name: name,
+        status: ca.status || 'Request Approved',
+        visaType: ca.visaType || 'Visa D',
+        purpose: ca.purpose || 'Employment',
+        appDate: ca.applicationDate || '2026-09-15',
+        approvalDate: ca.approvalDate || '2026-09-22',
+        passportNumber: (ca.personalData && ca.personalData.passportNumber) || ca.passportNumber || 'A1234567',
+        citizenship: (ca.personalData && ca.personalData.citizenship) || ca.citizenship || 'India'
+      });
+    });
+
+    const regUsers = JSON.parse(localStorage.getItem('srb_registered_users') || '{}');
+    const existingNames = new Set(list.map(item => item.name.toUpperCase()));
+    for (const key of Object.keys(regUsers)) {
+      const u = regUsers[key];
+      if (u && u.name && !existingNames.has(u.name.toUpperCase())) {
+        existingNames.add(u.name.toUpperCase());
+        const appKey = `srb_user_app_${(u.email || key).toLowerCase()}`;
+        const savedApp = JSON.parse(localStorage.getItem(appKey) || '{}');
+        list.push({
+          id: savedApp.id || String(Math.floor(499270 + Math.random() * 1000)),
+          visId: savedApp.visId || String(Math.floor(597290 + Math.random() * 1000)),
+          name: u.name.toUpperCase(),
+          status: savedApp.status || 'Request Approved',
+          visaType: savedApp.visaType || 'Visa D',
+          purpose: 'Employment',
+          appDate: u.applicationDate || savedApp.applicationDate || '2026-09-15',
+          approvalDate: u.approvalDate || savedApp.approvalDate || '2026-09-22',
+          passportNumber: u.passportNumber || 'A123456',
+          citizenship: u.citizenship || 'India'
+        });
+      }
+    }
+  } catch (e) {}
+  return list;
+}
+
 // Generate/retrieve unique user application object for static mode
 function getLocalUserApp(email, name) {
   const cleanEmail = (email || '').toLowerCase().trim();
   const displayName = name || resolveUserName(email);
+
+  if (displayName.toUpperCase().includes('H.R. INTERNATIONAL') || cleanEmail.includes('hr.international')) {
+    return DEFAULT_MASTER_REQUESTS[0];
+  }
 
   if (cleanEmail === 'rahul.rana@gmail.com' || (displayName.toUpperCase() === 'RAHUL RANA' && cleanEmail.includes('rahul'))) {
     return {
@@ -508,8 +589,22 @@ function getLoggedInUser() {
       user = JSON.parse(saved);
     } catch (e) {}
   }
+
+  // If on myrequests page and not explicitly logged in as someone else, default to Master Account matching screenshot
+  const isRequestsPage = window.location.pathname.includes('myrequests') || window.location.href.includes('myrequests');
+  if (isRequestsPage && (!user || user.role === 'master' || user.isMaster || user.name === 'H.R. INTERNATIONAL D.O.O')) {
+    user = { ...MASTER_USER };
+    localStorage.setItem('srb_evisa_auth_user', JSON.stringify(user));
+    return user;
+  }
+
   // Clear any old hardcoded reference or invalid name
   if (!user || !user.name || user.name === 'PURUSHOTTAM SUBEDI' || user.name.toUpperCase() === 'JOHN DOE' || user.name.toUpperCase() === 'USER') {
+    if (isRequestsPage) {
+      user = { ...MASTER_USER };
+      localStorage.setItem('srb_evisa_auth_user', JSON.stringify(user));
+      return user;
+    }
     // If registered users exist in localStorage, use the latest one
     try {
       const regUsers = JSON.parse(localStorage.getItem('srb_registered_users') || '{}');
@@ -725,15 +820,26 @@ function handleAuthNavClick(type, el) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   } else if (type === 'visaC') {
-    startNewApplication('Visa C');
+    const isRequestsPage = window.location.href.toLowerCase().includes('myrequests') || window.location.pathname.toLowerCase().includes('myrequests');
+    if (isRequestsPage && typeof filterRequestsByCategory === 'function') {
+      filterRequestsByCategory('Visa C');
+    } else {
+      startNewApplication('Visa C');
+    }
   } else if (type === 'visaD') {
-    startNewApplication('Visa D');
+    const isRequestsPage = window.location.href.toLowerCase().includes('myrequests') || window.location.pathname.toLowerCase().includes('myrequests');
+    if (isRequestsPage && typeof filterRequestsByCategory === 'function') {
+      filterRequestsByCategory('Visa D');
+    } else {
+      startNewApplication('Visa D');
+    }
   } else if (type === 'requests') {
+    const isReq = window.location.href.toLowerCase().includes('myrequests') || window.location.pathname.toLowerCase().includes('myrequests');
+    if (isReq && typeof filterRequestsByCategory === 'function') {
+      filterRequestsByCategory('all');
+    }
     const targetUrl = getMyRequestsRedirectUrl();
-    const href = window.location.href.toLowerCase();
-    const pathname = window.location.pathname.toLowerCase();
-    const isRequestsPage = href.includes('myrequests') || pathname.includes('myrequests');
-    if (!isRequestsPage) {
+    if (!isReq) {
       triggerBuffering(() => {
         window.location.href = targetUrl;
       }, 300);
@@ -905,6 +1011,42 @@ async function handleLoginSubmit(e) {
     if (!emailVal && emailInput) emailInput.focus();
     else if (!passVal && passInput) passInput.focus();
     return;
+  }
+
+  // 0. Master Account Check for H.R. INTERNATIONAL D.O.O
+  const cleanInput = emailVal.toLowerCase().trim();
+  const isMasterUser = (
+    cleanInput === 'hr.international' ||
+    cleanInput === 'hr.international@welcometoserbia.gov.rs' ||
+    cleanInput === 'hr.international@gmail.com' ||
+    cleanInput === 'h.r. international d.o.o' ||
+    cleanInput === 'hr' ||
+    cleanInput === 'admin' ||
+    cleanInput === 'master'
+  );
+
+  if (isMasterUser) {
+    if (passVal === 'Password@123' || passVal === 'password123' || passVal === 'Admin@123' || passVal === 'Hr@123' || passVal === '1234') {
+      const masterUser = { ...MASTER_USER };
+      localStorage.setItem('srb_evisa_auth_user', JSON.stringify(masterUser));
+      closeModal('login-modal');
+      showToast('Signed in successfully as H.R. INTERNATIONAL D.O.O (Master Account)');
+      const nextUrl = getMyRequestsRedirectUrl();
+      triggerBuffering(() => {
+        window.location.href = nextUrl;
+      }, 400);
+      setTimeout(() => {
+        window.location.href = nextUrl;
+      }, 500);
+      return;
+    } else {
+      showToast('Invalid password for Master Account. Please use Password@123', 'error');
+      if (passInput) {
+        passInput.value = '';
+        passInput.focus();
+      }
+      return;
+    }
   }
 
   // 1. Check server database via API if available
@@ -1135,6 +1277,9 @@ async function handleRegisterSubmit(e) {
       currency: 'EUR'
     };
     localStorage.setItem(`srb_user_app_${email.toLowerCase()}`, JSON.stringify(userApp));
+    let customApps = JSON.parse(localStorage.getItem('srb_custom_created_apps') || '[]');
+    customApps.push(userApp);
+    localStorage.setItem('srb_custom_created_apps', JSON.stringify(customApps));
   } catch (err) {}
 
   // 5. Sync with backend API if online
@@ -1339,6 +1484,28 @@ async function submitEvisaForm() {
     closeModal('wizard-modal');
     showToast(`Application ${ref} submitted successfully!`);
   }
+
+  // Save to custom created applications list for master viewing
+  try {
+    const appRef = String(Math.floor(499270 + Math.random() * 1000));
+    const visRef = String(Math.floor(597290 + Math.random() * 1000));
+    const appItem = {
+      id: appRef,
+      visId: visRef,
+      userId: (currentUser && currentUser.email) || 'applicant@gmail.com',
+      name: `${payload.personalData.givenName || ''} ${payload.personalData.surname || ''}`.trim().toUpperCase() || 'APPLICANT',
+      visaType: payload.visaType.includes('Visa C') ? 'Visa C' : 'Visa D',
+      purpose: payload.purposeOfStay || 'Employment',
+      status: 'Request Approved',
+      applicationDate: new Date().toISOString().split('T')[0],
+      approvalDate: new Date(Date.now() + 7*24*60*60*1000).toISOString().split('T')[0],
+      passportNumber: payload.passportData.passportNumber || 'A1234567',
+      citizenship: payload.personalData.citizenship || 'India'
+    };
+    let customApps = JSON.parse(localStorage.getItem('srb_custom_created_apps') || '[]');
+    customApps.push(appItem);
+    localStorage.setItem('srb_custom_created_apps', JSON.stringify(customApps));
+  } catch(e) {}
 }
 
 // e-Visa PDF Certificate Viewer

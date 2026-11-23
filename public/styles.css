@@ -1875,20 +1875,129 @@ header {
 }
 
 .myrequests-page-title {
-  font-size: 2.7rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: #1e355b;
   text-align: center;
-  margin: 40px 0 50px 0;
+  margin: 30px 0 25px 0;
   letter-spacing: -0.5px;
 }
 
-.myrequests-table-wrapper {
-  width: 100%;
-  border-top: 1px solid #dce1e7;
-  border-bottom: 1px solid #dce1e7;
+/* Category Filter Tabs for Group C and Group D */
+.myrequests-filter-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
 }
 
+.myrequests-filter-btn {
+  background-color: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.myrequests-filter-btn:hover {
+  background-color: #e2e8f0;
+  color: #1e355b;
+}
+
+.myrequests-filter-btn.active {
+  background-color: #1e355b;
+  color: #ffffff;
+  border-color: #1e355b;
+  box-shadow: 0 2px 6px rgba(30, 53, 91, 0.25);
+}
+
+.myrequests-filter-count {
+  background-color: rgba(0, 0, 0, 0.08);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.76rem;
+}
+
+.myrequests-filter-btn.active .myrequests-filter-count {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+/* Table Wrapper matching media_1795450793508_fd53fc5d.jpg */
+.myrequests-table-wrapper {
+  width: 100%;
+  border-top: 1.5px solid #1e355b;
+  border-bottom: 1.5px solid #1e355b;
+}
+
+.myrequests-item-block {
+  padding: 12px 6px;
+  border-bottom: 1px solid #dce1e7;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.myrequests-item-block:hover {
+  background-color: #f8fafc;
+}
+
+.myrequests-item-block:last-child {
+  border-bottom: none;
+}
+
+.myrequests-grid-row {
+  display: grid;
+  grid-template-columns: 24% 24% 34% 18%;
+  align-items: center;
+  width: 100%;
+}
+
+.myrequests-grid-labels {
+  margin-bottom: 4px;
+}
+
+.myrequests-grid-labels span {
+  font-size: 0.82rem;
+  color: #718096;
+  font-weight: 500;
+}
+
+.myrequests-grid-values span {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #1e355b;
+}
+
+.myrequests-grid-values .myrequests-status-badge {
+  background-color: #00a651;
+  color: #ffffff;
+  padding: 3px 12px;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.myrequests-visa-tag {
+  font-size: 0.72rem;
+  color: #64748b;
+  margin-left: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Legacy single-row compatibility */
 .myrequests-row {
   display: flex;
   align-items: center;
@@ -1914,18 +2023,6 @@ header {
   font-size: 1.05rem;
   font-weight: 700;
   color: #1e355b;
-}
-
-.myrequests-status-badge {
-  background-color: #00a651;
-  color: #ffffff;
-  padding: 3px 10px;
-  border-radius: 2px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  white-space: nowrap;
-  display: inline-block;
-  text-align: center;
 }
 
 .myrequests-col-action {
@@ -1956,10 +2053,30 @@ header {
   transform: scale(0.98);
 }
 
+/* Screenshot Bottom URL Bar */
+.myrequests-print-footer-bar {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+  padding: 10px 15px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fdfdfd;
+  word-break: break-all;
+  line-height: 1.4;
+}
+
 @media (max-width: 860px) {
   .myrequests-page-title {
-    font-size: 2rem;
-    margin: 30px 0 35px 0;
+    font-size: 1.9rem;
+    margin: 24px 0 20px 0;
+  }
+  
+  .myrequests-grid-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
   
   .myrequests-row {
